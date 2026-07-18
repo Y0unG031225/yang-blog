@@ -1,5 +1,6 @@
-const CACHE = "yang-blog-v1";
-const CORE = ["/", "/archives", "/categories", "/tags", "/favicon.svg"];
+const CACHE = "yang-blog-v2";
+const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, "");
+const CORE = ["/", "/archives/", "/categories/", "/tags/", "/favicon.svg"].map(path => `${BASE}${path}`);
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
@@ -15,5 +16,5 @@ self.addEventListener("fetch", event => {
     const copy = response.clone();
     if (response.ok) caches.open(CACHE).then(cache => cache.put(event.request, copy));
     return response;
-  }).catch(() => caches.match(event.request).then(hit => hit || caches.match("/"))));
+  }).catch(() => caches.match(event.request).then(hit => hit || caches.match(`${BASE}/`))));
 });
