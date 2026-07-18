@@ -6,10 +6,10 @@ export const metadata: Metadata = { title: "关于我", description: siteConfig.
 
 export default function AboutPage() {
   const contactLinks = [
-    siteConfig.contact.email && { label: siteConfig.contact.email, href: `mailto:${siteConfig.contact.email}` },
-    siteConfig.contact.github && { label: "GitHub", href: siteConfig.contact.github },
-    siteConfig.contact.bilibili && { label: "Bilibili", href: siteConfig.contact.bilibili },
-  ].filter(Boolean) as { label: string; href: string }[];
+    siteConfig.contact.email && { label: siteConfig.contact.email, href: `mailto:${siteConfig.contact.email}`, external: false },
+    siteConfig.contact.github.startsWith("http") && { label: "GitHub", href: siteConfig.contact.github, external: true },
+    siteConfig.contact.bilibili.startsWith("http") && { label: "Bilibili", href: siteConfig.contact.bilibili, external: true },
+  ].filter(Boolean) as { label: string; href: string; external: boolean }[];
 
   return <PageShell><main className="shell page-main about-page">
     <header className="page-hero about-hero">
@@ -22,6 +22,6 @@ export default function AboutPage() {
       <section><span className="chapter">03</span><h2>兴趣坐标</h2><div className="interest-list">{siteConfig.interests.map(interest => <span key={interest}>{interest}</span>)}</div></section>
       <section><span className="chapter">04</span><h2>接下来</h2><p>{siteConfig.nextGoal}</p></section>
     </div>
-    <aside className="contact-card"><span className="eyebrow">SAY HELLO</span><h2>欢迎交流学习与项目想法。</h2>{contactLinks.length ? <div className="contact-links">{contactLinks.map(link => <a key={link.href} href={link.href}>{link.label}</a>)}</div> : <p>联系方式暂未公开，可以在个人信息配置中随时添加。</p>}</aside>
+    <aside className="contact-card"><span className="eyebrow">SAY HELLO</span><h2>欢迎交流学习与项目想法。</h2>{contactLinks.length ? <div className="contact-links">{contactLinks.map(link => <a key={link.href} href={link.href} target={link.external ? "_blank" : undefined} rel={link.external ? "noreferrer" : undefined}>{link.label}</a>)}</div> : <p>联系方式暂未公开，可以在个人信息配置中随时添加。</p>}</aside>
   </main></PageShell>;
 }
