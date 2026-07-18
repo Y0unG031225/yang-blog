@@ -1,4 +1,5 @@
-/// <reference types="vite/client" />
+import fs from "node:fs";
+import path from "node:path";
 
 export type BlogPost = {
   slug: string;
@@ -16,11 +17,12 @@ export type BlogPost = {
 
 type Frontmatter = Record<string, string | string[] | boolean>;
 
-const markdownFiles = import.meta.glob("../../content/posts/*.md", {
-  eager: true,
-  query: "?raw",
-  import: "default",
-}) as Record<string, string>;
+const postsDirectory = path.join(process.cwd(), "content", "posts");
+const markdownFiles = Object.fromEntries(
+  fs.readdirSync(postsDirectory)
+    .filter(file => file.endsWith(".md"))
+    .map(file => [path.join(postsDirectory, file), fs.readFileSync(path.join(postsDirectory, file), "utf8")]),
+);
 
 function cleanValue(value: string) {
   const trimmed = value.trim();
@@ -65,7 +67,7 @@ function estimateReadTime(content: string) {
 
 function toPost(file: string, raw: string): BlogPost {
   const { data, content } = parseFrontmatter(raw);
-  const slug = file.split("/").pop()?.replace(/\.md$/, "") ?? "post";
+  const slug = path.basename(file, ".md");
   return {
     slug,
     title: requiredString(data, "title", file),

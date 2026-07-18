@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { BlogPost } from "./lib/posts";
 
-export function CollectionPostRow({ post, compact = false }: { post: BlogPost; compact?: boolean }) {
+export function CollectionPostRow({ post, compact = false }: { post: Omit<BlogPost, "content">; compact?: boolean }) {
   return <article className={`collection-post ${compact ? "compact" : ""}`}>
     <time dateTime={post.date}>{post.date.slice(5).replace("-", ".")}</time>
     <div>
