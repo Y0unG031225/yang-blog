@@ -2,7 +2,7 @@ import { PageShell, PostCard } from "./components";
 import { posts } from "./data";
 import { TypingTitle } from "./TypingTitle";
 
-const heroTitle = "What is AI? What is Deep Learning? What is LLM?";
+const heroTitle = "Welcome to Yang's Blog";
 
 export default function Home() {
   return <PageShell><main className="blog-home">
