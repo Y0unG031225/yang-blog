@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArticleReadingTools } from "../../ArticleReadingTools";
 import { MarkdownContent, getMarkdownHeadings } from "../../MarkdownContent";
+import { PostEngagement } from "../../PostEngagement";
 import { PageShell } from "../../components";
 import { getPost, posts } from "../../lib/posts";
 
@@ -13,7 +14,15 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const post = getPost(slug);
-  return { title: post?.title ?? "文章", description: post?.description };
+  if (!post) return { title: "文章" };
+  const image = `/og/posts/${post.slug}.png`;
+  return {
+    title: post.title,
+    description: post.description,
+    alternates: { canonical: `/posts/${post.slug}` },
+    openGraph: { type: "article", title: post.title, description: post.description, publishedTime: post.date, tags: post.tags, images: [{ url: image, width: 1200, height: 630, alt: post.title }] },
+    twitter: { card: "summary_large_image", title: post.title, description: post.description, images: [image] },
+  };
 }
 
 export default async function PostDetail({ params }: { params: Promise<{ slug: string }> }) {
@@ -34,6 +43,7 @@ export default async function PostDetail({ params }: { params: Promise<{ slug: s
       <p>{post.description}</p>
       <div className="tag-row">{post.tags.map(tag => <Link key={tag} href={`/tags?tag=${encodeURIComponent(tag)}`}>#{tag}</Link>)}</div>
     </header>
+    <PostEngagement slug={post.slug} title={post.title} description={post.description}/>
     <div className={`article-layout ${headings.length ? "" : "without-toc"}`}>
       <ArticleReadingTools headings={headings}/>
       <article className="prose"><MarkdownContent markdown={post.content}/></article>

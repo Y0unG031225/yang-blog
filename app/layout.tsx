@@ -1,9 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
+import { AppBootstrap } from "./AppBootstrap";
 import { siteConfig } from "./site.config";
 import "./globals.css";
 
 const themeScript = `(function(){try{var saved=localStorage.getItem('yang-blog-theme');var theme=saved==='light'||saved==='dark'?saved:(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.dataset.theme=theme;}catch(e){document.documentElement.dataset.theme='dark';}})();`;
+
+export const viewport: Viewport = { themeColor: "#14283a" };
 
 export async function generateMetadata(): Promise<Metadata> {
   const headerList = await headers();
@@ -14,12 +17,14 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: base,
     title: { default: siteConfig.siteName, template: `%s · ${siteConfig.siteName}` },
     description: siteConfig.description,
-    icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+    manifest: "/manifest.webmanifest",
+    appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Yang's Blog" },
+    icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }, { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" }], shortcut: "/favicon.svg", apple: "/icons/apple-touch-icon.png" },
     openGraph: { title: siteConfig.siteName, description: siteConfig.shortDescription, type: "website", images: [{ url: new URL("/og-blog.png", base).toString(), width: 1200, height: 630, alt: siteConfig.siteName }] },
     twitter: { card: "summary_large_image", title: siteConfig.siteName, description: siteConfig.shortDescription, images: [new URL("/og-blog.png", base).toString()] },
   };
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang={siteConfig.language} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: themeScript }}/></head><body>{children}</body></html>;
+  return <html lang={siteConfig.language} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: themeScript }}/></head><body><AppBootstrap/>{children}</body></html>;
 }

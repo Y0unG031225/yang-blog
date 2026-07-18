@@ -45,6 +45,8 @@ test("builds archive, taxonomy and Markdown article routes", async () => {
   assert.match(article, /本页目录/);
   assert.match(article, /aria-label="文章阅读进度"/);
   assert.match(article, /article-nav-card/);
+  assert.match(article, /文章分享与统计/);
+  assert.match(article, /og\/posts\/unet-notes\.png/);
 });
 
 test("keeps publishable posts as Markdown with frontmatter", async () => {
@@ -59,4 +61,15 @@ test("keeps publishable posts as Markdown with frontmatter", async () => {
     assert.match(markdown, /\ntags:\s*\[[^\]]+\]/);
     assert.match(markdown, /\n---\n[\s\S]+/);
   }
+});
+
+test("includes generated sharing and install assets with a view-count migration", async () => {
+  const [card, icon, migration] = await Promise.all([
+    readFile(new URL("../public/og/posts/unet-notes.png", import.meta.url)),
+    readFile(new URL("../public/icons/icon-512.png", import.meta.url)),
+    readFile(new URL("../drizzle/0000_fast_cloak.sql", import.meta.url), "utf8"),
+  ]);
+  assert.ok(card.length > 10_000);
+  assert.ok(icon.length > 1_000);
+  assert.match(migration, /CREATE TABLE `post_views`/);
 });
