@@ -1,5 +1,6 @@
 import { PageShell, PostCard } from "./components";
 import { posts } from "./lib/posts";
+import { ScrollToArticles } from "./ScrollToArticles";
 import { siteConfig } from "./site.config";
 import { TypingTitle } from "./TypingTitle";
 
@@ -8,8 +9,9 @@ export default function Home() {
     <section className="blog-hero">
       <div className="hero-overlay" />
       <div className="hero-title"><TypingTitle text={siteConfig.heroTitle} /></div>
+      <ScrollToArticles />
     </section>
-    <section className="home-feed" aria-label="Latest articles">
+    <section id="articles" className="home-feed" aria-label="Latest articles">
       <div className="post-list">{posts.map(post => <PostCard key={post.slug} post={post}/>)}</div>
     </section>
   </main></PageShell>;
