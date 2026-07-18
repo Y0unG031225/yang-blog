@@ -20,6 +20,7 @@ test("renders the personal blog homepage", async () => {
   const html = await response.text();
   assert.match(html, /Yang(?:&apos;|&#x27;|')s Blog/);
   assert.match(html, /读懂 U-Net/);
+  assert.doesNotMatch(html, /id="latest"/);
   assert.doesNotMatch(html, /sites-skeleton|Building your site/);
 });
 

@@ -9,7 +9,7 @@ export default function Home() {
       <div className="hero-overlay" />
       <div className="hero-title"><TypingTitle text={siteConfig.heroTitle} /></div>
     </section>
-    <section id="latest" className="home-feed" aria-label="Latest articles">
+    <section className="home-feed" aria-label="Latest articles">
       <div className="post-list">{posts.map(post => <PostCard key={post.slug} post={post}/>)}</div>
     </section>
   </main></PageShell>;
