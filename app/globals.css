@@ -88,3 +88,9 @@ html[data-theme="light"] .collection-hero,html[data-theme="light"] .archive-year
 html[data-theme="light"] .post-engagement,html[data-theme="light"] .popular-posts{background:#fff;border-color:#ebebeb;box-shadow:0 3px 14px #121f2a0a}html[data-theme="light"] .share-actions button{background:#f7f8fa;border-color:#e5e8eb;color:#536a79}html[data-theme="light"] .share-actions button:hover{background:#175199;border-color:#175199;color:#fff}html[data-theme="light"] .popular-posts>header,html[data-theme="light"] .popular-posts li{border-color:#ebebeb}
 
 @media(max-width:620px){.post-engagement{align-items:flex-start;flex-direction:column}.share-actions{justify-content:flex-start}.popular-posts{padding-inline:20px}.popular-posts li{grid-template-columns:30px 1fr}.popular-posts li>span{grid-column:2}}
+
+/* Keep the complete article body inside a panel aligned with the article header. */
+.article-layout{width:100%;grid-template-columns:180px minmax(0,1fr);justify-content:stretch;align-items:start;gap:48px;margin-top:16px;padding:44px 54px 58px;border:1px solid var(--line);border-radius:6px;background:var(--panel);box-shadow:0 18px 50px #0003}.article-layout.without-toc{grid-template-columns:minmax(0,760px);justify-content:center}.article-layout .prose{min-width:0}.article-layout .toc{top:105px}
+html[data-theme="light"] .article-layout{background:#fff;border-color:#ebebeb;box-shadow:0 8px 30px #12253612}
+@media(max-width:850px){.article-layout{grid-template-columns:1fr;gap:30px;padding:34px 38px 46px}.article-layout.without-toc{grid-template-columns:1fr}}
+@media(max-width:560px){.article-layout{padding:26px 20px 36px;border-radius:5px}.article-layout .toc{margin-bottom:4px}}
