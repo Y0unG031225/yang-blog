@@ -1,0 +1,79 @@
+---
+title: 博客项目文件说明
+description: 解释介绍博客项目文件
+date: 2026-07-06
+category: 项目记录
+categoryKey: life
+tags: [说明书]
+tone: blue
+read: 4 分钟
+draft: false
+---
+
+# Yang's Blog 项目文件说明
+
+这个项目已经改为纯静态博客：文章和页面会在发布前一次性生成，不包含阅读量、热门文章、后台接口或数据库。
+
+## 最常编辑的内容
+
+| 路径 | 作用 |
+| --- | --- |
+| `content/posts/` | Markdown 文章目录；以后主要在这里写文章 |
+| `app/site.config.ts` | 网站名称、首页欢迎语、个人资料、联系方式等统一配置 |
+| `public/` | 背景图、头像、网站图标、分享预览图和下载文件 |
+| `app/globals.css` | 全站颜色、尺寸、排版、深浅色和移动端样式 |
+
+## 页面与功能
+
+| 路径 | 作用 |
+| --- | --- |
+| `app/page.tsx` | 首页：全屏背景、打字欢迎语和文章列表 |
+| `app/posts/[slug]/page.tsx` | 每篇 Markdown 文章共用的详情页模板 |
+| `app/posts/page.tsx` | 全部文章与筛选入口 |
+| `app/archives/page.tsx` | 按年份展示的归档页 |
+| `app/categories/page.tsx` | 分类页 |
+| `app/tags/page.tsx` | 标签页 |
+| `app/about/page.tsx` | 关于页 |
+| `app/projects/` | 项目列表与项目详情页 |
+| `app/resources/page.tsx` | 资源页 |
+| `app/lib/posts.ts` | 在构建时读取 Markdown、解析文章信息并排序 |
+| `app/MarkdownContent.tsx` | 把 Markdown 正文转换成文章页面 |
+| `app/ArticleReadingTools.tsx` | 阅读进度、目录高亮、代码复制、图片预览和返回顶部 |
+| `app/PostShareActions.tsx` | 复制文章链接和社交分享；不保存任何统计数据 |
+| `app/SiteNavigation.tsx` | 桌面端与手机端导航、当前页面状态 |
+| `app/HeaderActions.tsx` | 搜索和主题切换 |
+| `app/CollectionBrowser.tsx` | 分类与标签的浏览器端静态筛选 |
+| `app/PostsBrowser.tsx` | 文章页的浏览器端静态筛选 |
+
+## 构建与发布
+
+| 路径 | 作用 |
+| --- | --- |
+| `package.json` | 项目依赖和本地运行、构建命令 |
+| `package-lock.json` | 固定依赖版本，保证本地和 GitHub 构建一致 |
+| `next.config.ts` | 开启纯静态导出并适配 GitHub Pages 子目录网址 |
+| `.github/workflows/deploy-pages.yml` | 推送到 `main` 后自动构建并部署 GitHub Pages |
+| `public/.nojekyll` | 告诉 GitHub Pages 原样发布 Next.js 生成的资源目录 |
+| `app/sitemap.ts` | 自动生成搜索引擎站点地图 |
+| `public/sw.js` | 安装体验和基础离线缓存 |
+| `out/` | `npm run build` 生成的最终静态网站；不要手动编辑 |
+
+## 通常不需要修改
+
+| 路径 | 作用 |
+| --- | --- |
+| `node_modules/` | 已安装的第三方依赖 |
+| `.next/` | 本地构建缓存 |
+| `tsconfig.json` | TypeScript 配置 |
+| `eslint.config.mjs` | 代码检查配置 |
+| `postcss.config.mjs` | CSS 处理配置 |
+
+## 发布一篇新文章
+
+1. 在 `content/posts/` 复制一篇现有 Markdown 作为模板。
+2. 修改文件名和顶部的标题、描述、日期、分类、标签等信息。
+3. 把 `draft` 设为 `false`。
+4. 提交并推送到 GitHub；自动发布流程会更新网站。写完后，在项目目录执行
+    git add content/posts
+    git commit -m "publish new article"
+    git push
