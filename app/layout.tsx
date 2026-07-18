@@ -3,6 +3,8 @@ import { headers } from "next/headers";
 import { siteConfig } from "./site.config";
 import "./globals.css";
 
+const themeScript = `(function(){try{var saved=localStorage.getItem('yang-blog-theme');var theme=saved==='light'||saved==='dark'?saved:(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.dataset.theme=theme;}catch(e){document.documentElement.dataset.theme='dark';}})();`;
+
 export async function generateMetadata(): Promise<Metadata> {
   const headerList = await headers();
   const host = headerList.get("host") ?? "localhost:3000";
@@ -19,5 +21,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang={siteConfig.language}><body>{children}</body></html>;
+  return <html lang={siteConfig.language} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: themeScript }}/></head><body>{children}</body></html>;
 }

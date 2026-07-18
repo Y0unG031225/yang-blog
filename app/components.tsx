@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { HeaderActions } from "./HeaderActions";
+import { posts } from "./lib/posts";
 import { siteConfig } from "./site.config";
 
 const navLinks = [
@@ -25,8 +27,7 @@ function NavIcon({ name }: { name: "home" | "archive" | "grid" | "tag" | "user" 
 export function SiteHeader() {
   return <header className="site-header"><div className="nav-wrap">
     <Link className="brand" href="/">{siteConfig.siteName}</Link>
-    <nav className="desktop-nav" aria-label="Main navigation">{navLinks.map(([href, icon, label]) => <Link key={label} href={href}><NavIcon name={icon}/>{label}</Link>)}<span className="nav-icon" title="Search"><NavIcon name="search"/></span><span className="nav-icon" title="Dark theme"><NavIcon name="moon"/></span></nav>
-    <details className="mobile-nav"><summary aria-label="Open navigation">Menu</summary><nav>{navLinks.map(([href, , label]) => <Link key={label} href={href}>{label}</Link>)}</nav></details>
+    <div className="header-controls"><nav className="desktop-nav" aria-label="Main navigation">{navLinks.map(([href, icon, label]) => <Link key={label} href={href}><NavIcon name={icon}/>{label}</Link>)}</nav><HeaderActions posts={posts.map(({ slug, title, description, category, tags }) => ({ slug, title, description, category, tags }))}/><details className="mobile-nav"><summary aria-label="Open navigation">Menu</summary><nav>{navLinks.map(([href, , label]) => <Link key={label} href={href}>{label}</Link>)}</nav></details></div>
   </div></header>;
 }
 
