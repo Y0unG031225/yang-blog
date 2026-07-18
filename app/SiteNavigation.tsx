@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -9,9 +9,9 @@ type IconName = "home" | "archive" | "grid" | "tag" | "user";
 
 const navLinks = [
   { href: "/", icon: "home", label: "Home" },
-  { href: "/posts", icon: "archive", label: "Archives" },
-  { href: "/posts#categories", icon: "grid", label: "Categories" },
-  { href: "/posts#tags", icon: "tag", label: "Tags" },
+  { href: "/archives", icon: "archive", label: "Archives" },
+  { href: "/categories", icon: "grid", label: "Categories" },
+  { href: "/tags", icon: "tag", label: "Tags" },
   { href: "/about", icon: "user", label: "About" },
 ] as const satisfies ReadonlyArray<{ href: string; icon: IconName; label: string }>;
 
@@ -26,35 +26,27 @@ function NavIcon({ name }: { name: IconName }) {
   return <svg className="nav-svg" viewBox="0 0 24 24" aria-hidden="true">{paths[name]}</svg>;
 }
 
-function isActive(pathname: string, hash: string, search: string, href: string) {
-  const params = new URLSearchParams(search);
+function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
   if (href === "/about") return pathname === "/about";
-  if (href.endsWith("#categories")) return pathname === "/posts" && (hash === "#categories" || params.has("category"));
-  if (href.endsWith("#tags")) return pathname === "/posts" && (hash === "#tags" || params.has("tag"));
-  if (href === "/posts") return pathname.startsWith("/posts") && !["#categories", "#tags"].includes(hash) && !params.has("category") && !params.has("tag");
+  if (href === "/categories") return pathname === "/categories";
+  if (href === "/tags") return pathname === "/tags";
+  if (href === "/archives") return pathname === "/archives" || pathname.startsWith("/posts");
   return false;
 }
 
 export function SiteNavigation() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [hash, setHash] = useState("");
 
   useEffect(() => {
     setMounted(true);
-    const updateHash = () => setHash(window.location.hash);
-    updateHash();
-    window.addEventListener("hashchange", updateHash);
-    return () => window.removeEventListener("hashchange", updateHash);
   }, []);
 
   useEffect(() => {
-    setHash(window.location.hash);
     setOpen(false);
-  }, [pathname, searchParams, hash]);
+  }, [pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -69,7 +61,7 @@ export function SiteNavigation() {
   }, [open]);
 
   const links = (mobile = false) => navLinks.map(({ href, icon, label }) => {
-    const active = isActive(pathname, hash, searchParams.toString(), href);
+    const active = isActive(pathname, href);
     return <Link
       key={label}
       href={href}

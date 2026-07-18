@@ -28,13 +28,19 @@ test("renders the personal blog homepage", async () => {
   assert.doesNotMatch(html, /sites-skeleton|Building your site/);
 });
 
-test("builds the archive and Markdown article routes", async () => {
-  const [archiveResponse, articleResponse] = await Promise.all([render("/posts"), render("/posts/unet-notes")]);
+test("builds archive, taxonomy and Markdown article routes", async () => {
+  const [archiveResponse, categoriesResponse, tagsResponse, articleResponse] = await Promise.all([render("/archives"), render("/categories"), render("/tags"), render("/posts/unet-notes")]);
   assert.equal(archiveResponse.status, 200);
+  assert.equal(categoriesResponse.status, 200);
+  assert.equal(tagsResponse.status, 200);
   assert.equal(articleResponse.status, 200);
-  const [archive, article] = await Promise.all([archiveResponse.text(), articleResponse.text()]);
-  assert.match(archive, /文章与记录/);
-  assert.match(archive, /#Spring Boot/);
+  const [archive, categories, tags, article] = await Promise.all([archiveResponse.text(), categoriesResponse.text(), tagsResponse.text(), articleResponse.text()]);
+  assert.match(archive, /文章归档/);
+  assert.match(archive, /Spring Boot/);
+  assert.match(categories, /文章分类/);
+  assert.match(categories, /个分类/);
+  assert.match(tags, /文章标签/);
+  assert.match(tags, /个标签/);
   assert.match(article, /跳跃连接解决了什么/);
   assert.match(article, /本页目录/);
   assert.match(article, /aria-label="文章阅读进度"/);

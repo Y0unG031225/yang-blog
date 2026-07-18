@@ -27,20 +27,20 @@ export default async function PostDetail({ params }: { params: Promise<{ slug: s
   const olderPost = postIndex < posts.length - 1 ? posts[postIndex + 1] : undefined;
 
   return <PageShell><main className="article-shell">
-    <Link className="back-link" href="/posts">← 返回文章列表</Link>
+    <Link className="back-link" href="/archives">← 返回文章归档</Link>
     <header className="article-header">
       <div className="meta"><span>{post.category}</span><time dateTime={post.date}>{post.date}</time><span>{post.read}</span></div>
       <h1>{post.title}</h1>
       <p>{post.description}</p>
-      <div className="tag-row">{post.tags.map(tag => <Link key={tag} href={`/posts?tag=${encodeURIComponent(tag)}`}>#{tag}</Link>)}</div>
+      <div className="tag-row">{post.tags.map(tag => <Link key={tag} href={`/tags?tag=${encodeURIComponent(tag)}`}>#{tag}</Link>)}</div>
     </header>
     <div className={`article-layout ${headings.length ? "" : "without-toc"}`}>
       <ArticleReadingTools headings={headings}/>
       <article className="prose"><MarkdownContent markdown={post.content}/></article>
     </div>
     <nav className="article-nav">
-      {newerPost ? <Link className="article-nav-card previous" href={`/posts/${newerPost.slug}`}><small>上一篇 · 较新</small><strong><span>←</span>{newerPost.title}</strong></Link> : <Link className="article-nav-card archive" href="/posts"><small>已经是最新一篇</small><strong><span>←</span>返回全部文章</strong></Link>}
-      {olderPost ? <Link className="article-nav-card next" href={`/posts/${olderPost.slug}`}><small>下一篇 · 较早</small><strong>{olderPost.title}<span>→</span></strong></Link> : <Link className="article-nav-card archive next" href="/posts"><small>已经读到最后</small><strong>查看全部文章<span>→</span></strong></Link>}
+      {newerPost ? <Link className="article-nav-card previous" href={`/posts/${newerPost.slug}`}><small>上一篇 · 较新</small><strong><span>←</span>{newerPost.title}</strong></Link> : <Link className="article-nav-card archive" href="/archives"><small>已经是最新一篇</small><strong><span>←</span>返回文章归档</strong></Link>}
+      {olderPost ? <Link className="article-nav-card next" href={`/posts/${olderPost.slug}`}><small>下一篇 · 较早</small><strong>{olderPost.title}<span>→</span></strong></Link> : <Link className="article-nav-card archive next" href="/archives"><small>已经读到最后</small><strong>查看文章归档<span>→</span></strong></Link>}
     </nav>
   </main></PageShell>;
 }
