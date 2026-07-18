@@ -6,7 +6,7 @@ import { TypingTitle } from "./TypingTitle";
 
 export default function Home() {
   return <PageShell><main className="blog-home">
-    <section className="blog-hero" style={{ backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/city-hero-wide.jpg')` }}>
+    <section className="blog-hero" style={{ backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/city-hero-wide.webp')` }}>
       <div className="hero-overlay" />
       <div className="hero-title"><TypingTitle text={siteConfig.heroTitle} /></div>
       <ScrollToArticles />
