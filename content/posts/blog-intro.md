@@ -1,9 +1,9 @@
 ---
 title: 博客项目文件说明
 description: 解释介绍博客项目文件
-date: 2026-07-06
+date: 2026-07-18
 category: 项目记录
-categoryKey: life
+categoryKey: study
 tags: [说明书]
 tone: blue
 read: 4 分钟
@@ -74,6 +74,9 @@ draft: false
 2. 修改文件名和顶部的标题、描述、日期、分类、标签等信息。
 3. 把 `draft` 设为 `false`。
 4. 提交并推送到 GitHub；自动发布流程会更新网站。写完后，在项目目录执行
-    git add content/posts
-    git commit -m "publish new article"
-    git push
+```python
+git add content/posts
+git commit -m "publish new article"
+git push
+```
+    
