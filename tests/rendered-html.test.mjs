@@ -22,6 +22,8 @@ test("renders the personal blog homepage", async () => {
   assert.match(html, /读懂 U-Net/);
   assert.match(html, /aria-label="搜索文章"/);
   assert.match(html, /yang-blog-theme/);
+  assert.match(html, /aria-label="打开导航菜单"/);
+  assert.match(html, /aria-current="page"/);
   assert.doesNotMatch(html, /id="latest"/);
   assert.doesNotMatch(html, /sites-skeleton|Building your site/);
 });
