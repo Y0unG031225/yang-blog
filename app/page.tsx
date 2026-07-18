@@ -9,7 +9,6 @@ export default function Home() {
     <section className="blog-hero">
       <div className="hero-overlay" />
       <div className="hero-title"><TypingTitle text={heroTitle} /></div>
-      <a className="scroll-cue" href="#latest" aria-label="Scroll to latest posts"><span /></a>
     </section>
     <section id="latest" className="home-feed" aria-label="Latest articles">
       <div className="post-list">{posts.map(post => <PostCard key={post.slug} post={post}/>)}</div>
