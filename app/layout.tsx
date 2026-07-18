@@ -9,11 +9,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const base = new URL(`${protocol}://${host}`);
   return {
     metadataBase: base,
-    title: { default: "成长手记", template: "%s · 成长手记" },
-    description: "记录学习、研究、项目和日常生活的个人成长网站。",
+    title: { default: "Yang's Blog", template: "%s · Yang's Blog" },
+    description: "A personal technical blog about AI, deep learning, backend development and graduate research.",
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
-    openGraph: { title: "成长手记", description: "在探索中，成为自己。", type: "website", images: [{ url: new URL("/og.png", base).toString(), width: 1200, height: 630, alt: "成长手记" }] },
-    twitter: { card: "summary_large_image", title: "成长手记", description: "在探索中，成为自己。", images: [new URL("/og.png", base).toString()] },
+    openGraph: { title: "Yang's Blog", description: "AI · Deep Learning · Backend", type: "website", images: [{ url: new URL("/og-blog.png", base).toString(), width: 1200, height: 630, alt: "Yang's Blog" }] },
+    twitter: { card: "summary_large_image", title: "Yang's Blog", description: "AI · Deep Learning · Backend", images: [new URL("/og-blog.png", base).toString()] },
   };
 }
 
