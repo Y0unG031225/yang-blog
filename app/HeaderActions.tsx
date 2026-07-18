@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -21,11 +22,25 @@ export function HeaderActions({ posts }: { posts: SearchPost[] }) {
   const [theme, setTheme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
     setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
   }, []);
+
+  useEffect(() => {
+    const header = document.querySelector<HTMLElement>(".site-header");
+    if (!header) return;
+    const updateHeader = () => {
+      const hero = document.querySelector<HTMLElement>(".blog-hero");
+      header.classList.toggle("is-solid", !hero || hero.getBoundingClientRect().bottom <= header.offsetHeight);
+    };
+    const frame = requestAnimationFrame(updateHeader);
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    window.addEventListener("resize", updateHeader);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", updateHeader); window.removeEventListener("resize", updateHeader); };
+  }, [pathname]);
 
   useEffect(() => {
     if (!open) return;
