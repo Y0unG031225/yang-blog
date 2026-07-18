@@ -37,6 +37,8 @@ test("builds the archive and Markdown article routes", async () => {
   assert.match(archive, /#Spring Boot/);
   assert.match(article, /跳跃连接解决了什么/);
   assert.match(article, /本页目录/);
+  assert.match(article, /aria-label="文章阅读进度"/);
+  assert.match(article, /article-nav-card/);
 });
 
 test("keeps publishable posts as Markdown with frontmatter", async () => {

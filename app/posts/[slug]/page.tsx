@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArticleReadingTools } from "../../ArticleReadingTools";
 import { MarkdownContent, getMarkdownHeadings } from "../../MarkdownContent";
 import { PageShell } from "../../components";
 import { getPost, posts } from "../../lib/posts";
@@ -34,12 +35,12 @@ export default async function PostDetail({ params }: { params: Promise<{ slug: s
       <div className="tag-row">{post.tags.map(tag => <Link key={tag} href={`/posts?tag=${encodeURIComponent(tag)}`}>#{tag}</Link>)}</div>
     </header>
     <div className={`article-layout ${headings.length ? "" : "without-toc"}`}>
-      {headings.length > 0 && <aside className="toc"><span className="eyebrow">本页目录</span>{headings.map(heading => <a className={heading.level === 3 ? "toc-sub" : ""} key={heading.id} href={`#${heading.id}`}>{heading.text}</a>)}</aside>}
+      <ArticleReadingTools headings={headings}/>
       <article className="prose"><MarkdownContent markdown={post.content}/></article>
     </div>
     <nav className="article-nav">
-      {newerPost ? <Link href={`/posts/${newerPost.slug}`}>← 较新：{newerPost.title}</Link> : <span/>}
-      {olderPost ? <Link href={`/posts/${olderPost.slug}`}>较早：{olderPost.title} →</Link> : <Link href="/posts">全部文章 →</Link>}
+      {newerPost ? <Link className="article-nav-card previous" href={`/posts/${newerPost.slug}`}><small>上一篇 · 较新</small><strong><span>←</span>{newerPost.title}</strong></Link> : <Link className="article-nav-card archive" href="/posts"><small>已经是最新一篇</small><strong><span>←</span>返回全部文章</strong></Link>}
+      {olderPost ? <Link className="article-nav-card next" href={`/posts/${olderPost.slug}`}><small>下一篇 · 较早</small><strong>{olderPost.title}<span>→</span></strong></Link> : <Link className="article-nav-card archive next" href="/posts"><small>已经读到最后</small><strong>查看全部文章<span>→</span></strong></Link>}
     </nav>
   </main></PageShell>;
 }
