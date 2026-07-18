@@ -1,5 +1,3 @@
-export const profile = { name: "你的名字", initials: "YN", role: "计算机专业研究生", direction: "人工智能 · 医学图像 · 后端开发", intro: "把学习、研究和生活里的微小进步，认真地留在这里。" };
-
 export const projects = [
   { slug: "growth-journal", title: "个人成长记录站", description: "一个以 Markdown 为核心、低维护成本的个人数字花园。", status: "进行中", stack: ["Next.js", "Markdown", "Cloudflare"], year: "2026", tone: "sage" },
   { slug: "med-seg-lab", title: "医学图像分割实验台", description: "集中管理数据预处理、训练配置与实验结论的小工具。", status: "进行中", stack: ["Python", "PyTorch", "U-Net"], year: "2026", tone: "blue" },

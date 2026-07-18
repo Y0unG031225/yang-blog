@@ -1,5 +1,27 @@
 import type { Metadata } from "next";
 import { PageShell } from "../components";
-import { profile } from "../data";
-export const metadata: Metadata = { title: "关于我", description: "个人经历、方向、兴趣与未来计划。" };
-export default function AboutPage() { return <PageShell><main className="shell page-main about-page"><header className="page-hero about-hero"><div><span className="eyebrow">ABOUT ME</span><h1>你好，我是<br/>{profile.name}。</h1></div><p>一名正在摸索研究方向的计算机专业研究生。喜欢把复杂问题慢慢拆开，也愿意记录那些暂时没有答案的时刻。</p></header><div className="about-grid"><section><span className="chapter">01</span><h2>现在的我</h2><p>目前关注人工智能与医学图像方向，同时持续补齐 Java 后端开发和工程实践能力。我希望自己既能理解模型，也能把想法做成真正可用的产品。</p></section><section><span className="chapter">02</span><h2>教育与方向</h2><div className="timeline"><div><time>2025 — 至今</time><h3>计算机相关专业 · 硕士研究生</h3><p>研究方向探索、论文阅读与实验实践</p></div><div><time>2021 — 2025</time><h3>本科阶段</h3><p>软件开发基础、算法与项目实践</p></div></div></section><section><span className="chapter">03</span><h2>兴趣坐标</h2><div className="interest-list"><span>📚 深度阅读</span><span>🎮 独立游戏</span><span>📷 校园与旅行</span><span>☕ 安静地写代码</span></div></section><section><span className="chapter">04</span><h2>接下来</h2><p>完成一个扎实的研究课题，建立稳定的阅读与输出习惯，并让这个网站忠实记录一路上的变化。</p></section></div><aside className="contact-card"><span className="eyebrow">SAY HELLO</span><h2>欢迎交流学习与项目想法。</h2><p>请把这里替换为你的公开邮箱、GitHub 或其他社交主页。</p><span className="placeholder-contact">hello@example.com</span></aside></main></PageShell>; }
+import { siteConfig } from "../site.config";
+
+export const metadata: Metadata = { title: "关于我", description: siteConfig.intro };
+
+export default function AboutPage() {
+  const contactLinks = [
+    siteConfig.contact.email && { label: siteConfig.contact.email, href: `mailto:${siteConfig.contact.email}` },
+    siteConfig.contact.github && { label: "GitHub", href: siteConfig.contact.github },
+    siteConfig.contact.bilibili && { label: "Bilibili", href: siteConfig.contact.bilibili },
+  ].filter(Boolean) as { label: string; href: string }[];
+
+  return <PageShell><main className="shell page-main about-page">
+    <header className="page-hero about-hero">
+      <div>{siteConfig.avatar && <img className="profile-avatar" src={siteConfig.avatar} alt={`${siteConfig.ownerName}的头像`}/>}<span className="eyebrow">ABOUT ME</span><h1>你好，我是<br/>{siteConfig.ownerName}。</h1><small>{siteConfig.role} · {siteConfig.direction}</small></div>
+      <p>{siteConfig.aboutIntro}</p>
+    </header>
+    <div className="about-grid">
+      <section><span className="chapter">01</span><h2>现在的我</h2><p>{siteConfig.currentFocus}</p></section>
+      <section><span className="chapter">02</span><h2>教育与方向</h2><div className="timeline">{siteConfig.education.map(item => <div key={item.period}><time>{item.period}</time><h3>{item.title}</h3><p>{item.detail}</p></div>)}</div></section>
+      <section><span className="chapter">03</span><h2>兴趣坐标</h2><div className="interest-list">{siteConfig.interests.map(interest => <span key={interest}>{interest}</span>)}</div></section>
+      <section><span className="chapter">04</span><h2>接下来</h2><p>{siteConfig.nextGoal}</p></section>
+    </div>
+    <aside className="contact-card"><span className="eyebrow">SAY HELLO</span><h2>欢迎交流学习与项目想法。</h2>{contactLinks.length ? <div className="contact-links">{contactLinks.map(link => <a key={link.href} href={link.href}>{link.label}</a>)}</div> : <p>联系方式暂未公开，可以在个人信息配置中随时添加。</p>}</aside>
+  </main></PageShell>;
+}

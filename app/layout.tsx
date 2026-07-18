@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { siteConfig } from "./site.config";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -9,14 +10,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const base = new URL(`${protocol}://${host}`);
   return {
     metadataBase: base,
-    title: { default: "Yang's Blog", template: "%s · Yang's Blog" },
-    description: "A personal technical blog about AI, deep learning, backend development and graduate research.",
+    title: { default: siteConfig.siteName, template: `%s · ${siteConfig.siteName}` },
+    description: siteConfig.description,
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
-    openGraph: { title: "Yang's Blog", description: "AI · Deep Learning · Backend", type: "website", images: [{ url: new URL("/og-blog.png", base).toString(), width: 1200, height: 630, alt: "Yang's Blog" }] },
-    twitter: { card: "summary_large_image", title: "Yang's Blog", description: "AI · Deep Learning · Backend", images: [new URL("/og-blog.png", base).toString()] },
+    openGraph: { title: siteConfig.siteName, description: siteConfig.shortDescription, type: "website", images: [{ url: new URL("/og-blog.png", base).toString(), width: 1200, height: 630, alt: siteConfig.siteName }] },
+    twitter: { card: "summary_large_image", title: siteConfig.siteName, description: siteConfig.shortDescription, images: [new URL("/og-blog.png", base).toString()] },
   };
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="zh-CN"><body>{children}</body></html>;
+  return <html lang={siteConfig.language}><body>{children}</body></html>;
 }
