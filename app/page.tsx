@@ -1,5 +1,5 @@
 import { PageShell, PostCard } from "./components";
-import { posts } from "./data";
+import { posts } from "./lib/posts";
 import { TypingTitle } from "./TypingTitle";
 
 const heroTitle = "Welcome to Yang's Blog";

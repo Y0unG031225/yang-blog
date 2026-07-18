@@ -3,8 +3,8 @@ import Link from "next/link";
 const navLinks = [
   ["/", "home", "Home"],
   ["/posts", "archive", "Archives"],
-  ["/posts", "grid", "Categories"],
-  ["/posts", "tag", "Tags"],
+  ["/posts#categories", "grid", "Categories"],
+  ["/posts#tags", "tag", "Tags"],
   ["/about", "user", "About"],
 ] as const;
 
@@ -36,6 +36,6 @@ export function SectionHeading({ eyebrow, title, link, linkText = "View all" }: 
   return <div className="section-heading"><div>{eyebrow && <span className="eyebrow">{eyebrow}</span>}<h2>{title}</h2></div>{link && <Link className="text-link" href={link}>{linkText} →</Link>}</div>;
 }
 
-export function PostCard({ post }: { post: { slug: string; title: string; description: string; date: string; category: string; tags: string[]; tone: string; read: string } }) {
+export function PostCard({ post }: { post: { slug: string; title: string; description: string; date: string; category: string; tags: string[]; read: string } }) {
   return <article className="post-card"><h3><Link href={`/posts/${post.slug}`}>{post.title}</Link></h3><p>{post.description}</p><div className="post-meta"><span>▣ {post.date}</span><span>◆ {post.category}</span><span>◇ {post.tags.map(tag => `#${tag}`).join(" ")}</span><span>◷ {post.read}</span></div></article>;
 }
