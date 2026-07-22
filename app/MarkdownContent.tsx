@@ -29,6 +29,12 @@ function safeHref(value: string) {
   return /^(https?:\/\/|mailto:|\/|#)/.test(value) ? value : "#";
 }
 
+function siteHref(value: string) {
+  const href = safeHref(value);
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  return basePath && href.startsWith("/") && !href.startsWith("//") ? `${basePath}${href}` : href;
+}
+
 function renderInline(text: string, keyPrefix: string): ReactNode[] {
   const tokenPattern = /(!?\[[^\]]*\]\([^)]+\)|\*\*[^*]+\*\*|`[^`]+`|\*[^*]+\*)/g;
   const result: ReactNode[] = [];
@@ -41,8 +47,8 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
     const key = `${keyPrefix}-${index++}`;
     const link = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
     const image = token.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
-    if (image) result.push(<img key={key} src={safeHref(image[2])} alt={image[1]} loading="lazy"/>);
-    else if (link) result.push(<a key={key} href={safeHref(link[2])}>{link[1]}</a>);
+    if (image) result.push(<img key={key} src={siteHref(image[2])} alt={image[1]} loading="lazy"/>);
+    else if (link) result.push(<a key={key} href={siteHref(link[2])}>{link[1]}</a>);
     else if (token.startsWith("**")) result.push(<strong key={key}>{token.slice(2, -2)}</strong>);
     else if (token.startsWith("`")) result.push(<code key={key}>{token.slice(1, -1)}</code>);
     else result.push(<em key={key}>{token.slice(1, -1)}</em>);
@@ -124,7 +130,7 @@ export function MarkdownContent({ markdown }: { markdown: string }) {
     if (/^---+$/.test(line)) { nodes.push(<hr key={`hr-${index}`}/>); index++; continue; }
 
     const image = line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
-    if (image) { nodes.push(<img className="article-image" key={`img-${index}`} src={safeHref(image[2])} alt={image[1]} loading="lazy"/>); index++; continue; }
+    if (image) { nodes.push(<img className="article-image" key={`img-${index}`} src={siteHref(image[2])} alt={image[1]} loading="lazy"/>); index++; continue; }
 
     const paragraph: string[] = [line.trim()];
     index++;
