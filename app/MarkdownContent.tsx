@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import katex from "katex";
 
 export type MarkdownHeading = { id: string; text: string; level: 2 | 3 };
 
@@ -35,8 +36,48 @@ function siteHref(value: string) {
   return basePath && href.startsWith("/") && !href.startsWith("//") ? `${basePath}${href}` : href;
 }
 
+function renderMathHtml(value: string, displayMode: boolean) {
+  return katex.renderToString(value.trim(), {
+    displayMode,
+    throwOnError: false,
+    strict: "warn",
+    trust: false,
+    output: "htmlAndMathml",
+  });
+}
+
+function readMathBlock(lines: string[], start: number) {
+  const trimmed = (lines[start] ?? "").trim();
+  const delimiters = trimmed.startsWith("$$")
+    ? { open: "$$", close: "$$" }
+    : trimmed.startsWith("\\[")
+      ? { open: "\\[", close: "\\]" }
+      : null;
+  if (!delimiters) return null;
+
+  const first = trimmed.slice(delimiters.open.length);
+  const sameLineClose = first.lastIndexOf(delimiters.close);
+  if (sameLineClose >= 0 && !first.slice(sameLineClose + delimiters.close.length).trim()) {
+    return { value: first.slice(0, sameLineClose), next: start + 1 };
+  }
+
+  const parts = first ? [first] : [];
+  let index = start + 1;
+  while (index < lines.length) {
+    const line = lines[index];
+    const closeAt = line.indexOf(delimiters.close);
+    if (closeAt >= 0) {
+      parts.push(line.slice(0, closeAt));
+      return { value: parts.join("\n"), next: index + 1 };
+    }
+    parts.push(line);
+    index++;
+  }
+  return null;
+}
+
 function renderInline(text: string, keyPrefix: string): ReactNode[] {
-  const tokenPattern = /(!?\[[^\]]*\]\([^)]+\)|\*\*[^*]+\*\*|`[^`]+`|\*[^*]+\*)/g;
+  const tokenPattern = /(!?\[[^\]]*\]\([^)]+\)|`[^`]+`|\\\([\s\S]*?\\\)|(?<!\\)\$(?!\$)[^$\n]+?(?<!\\)\$|\*\*[^*]+\*\*|\*[^*]+\*)/g;
   const result: ReactNode[] = [];
   let cursor = 0;
   let match: RegExpExecArray | null;
@@ -49,6 +90,8 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
     const image = token.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (image) result.push(<img key={key} src={siteHref(image[2])} alt={image[1]} loading="lazy"/>);
     else if (link) result.push(<a key={key} href={siteHref(link[2])}>{link[1]}</a>);
+    else if (token.startsWith("\\(") && token.endsWith("\\)")) result.push(<span className="math-inline" key={key} dangerouslySetInnerHTML={{ __html: renderMathHtml(token.slice(2, -2), false) }}/>);
+    else if (token.startsWith("$") && token.endsWith("$")) result.push(<span className="math-inline" key={key} dangerouslySetInnerHTML={{ __html: renderMathHtml(token.slice(1, -1), false) }}/>);
     else if (token.startsWith("**")) result.push(<strong key={key}>{token.slice(2, -2)}</strong>);
     else if (token.startsWith("`")) result.push(<code key={key}>{token.slice(1, -1)}</code>);
     else result.push(<em key={key}>{token.slice(1, -1)}</em>);
@@ -60,7 +103,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
 
 function isBlockStart(lines: string[], index: number) {
   const line = lines[index] ?? "";
-  return !line.trim() || /^#{1,6}\s/.test(line) || /^```/.test(line) || /^>\s?/.test(line) || /^[-*+]\s+/.test(line) || /^\d+\.\s+/.test(line) || /^---+$/.test(line) || /^!\[[^\]]*\]\([^)]+\)$/.test(line.trim()) || (line.includes("|") && /^\s*\|?\s*:?-+/.test(lines[index + 1] ?? ""));
+  return !line.trim() || /^\s*(\$\$|\\\[)/.test(line) || /^#{1,6}\s/.test(line) || /^```/.test(line) || /^>\s?/.test(line) || /^[-*+]\s+/.test(line) || /^\d+\.\s+/.test(line) || /^---+$/.test(line) || /^!\[[^\]]*\]\([^)]+\)$/.test(line.trim()) || (line.includes("|") && /^\s*\|?\s*:?-+/.test(lines[index + 1] ?? ""));
 }
 
 export function MarkdownContent({ markdown }: { markdown: string }) {
@@ -80,6 +123,13 @@ export function MarkdownContent({ markdown }: { markdown: string }) {
       while (index < lines.length && !/^```/.test(lines[index])) code.push(lines[index++]);
       index++;
       nodes.push(<pre key={`code-${index}`}><code data-language={codeFence[1] || undefined}>{code.join("\n")}</code></pre>);
+      continue;
+    }
+
+    const mathBlock = readMathBlock(lines, index);
+    if (mathBlock) {
+      nodes.push(<div className="math-display" key={`math-${index}`} dangerouslySetInnerHTML={{ __html: renderMathHtml(mathBlock.value, true) }}/>);
+      index = mathBlock.next;
       continue;
     }
 

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { AppBootstrap } from "./AppBootstrap";
 import { siteConfig } from "./site.config";
+import "katex/dist/katex.min.css";
 import "./globals.css";
 
 const themeScript = `(function(){try{var saved=localStorage.getItem('yang-blog-theme');var theme=saved==='light'||saved==='dark'?saved:(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.dataset.theme=theme;}catch(e){document.documentElement.dataset.theme='dark';}})();`;
