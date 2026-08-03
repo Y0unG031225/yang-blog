@@ -1,0 +1,78 @@
+{
+  "paper": {
+    "title": "Human-level control through deep reinforcement learning",
+    "venue": "Nature 518, 529-533 (2015)",
+    "doi": "10.1038/nature14236",
+    "source_type": "pdf",
+    "language": "en",
+    "source_path": "C:\\Users\\yang\\Desktop\\MnihEtAlHassibis15NatureControlDeepRL.pdf",
+    "page_count": 13
+  },
+  "blocks": [
+    {"id":"S001","page":1,"type":"paragraph","order":1,"original_text":"Reinforcement learning, high-dimensional sensory input, and the representation problem.","translation":"强化学习、高维感知输入与表示问题。","bbox":[42,210,286,516],"confidence":"high","refs":[]},
+    {"id":"S002","page":1,"type":"paragraph","order":2,"original_text":"DQN learns policies from pixels and game score across 49 Atari games.","translation":"DQN 从像素与游戏得分学习策略，并在 49 款 Atari 游戏上评估。","bbox":[42,388,286,516],"confidence":"high","refs":[]},
+    {"id":"S003","page":1,"type":"paragraph","order":3,"original_text":"A single algorithm combines reinforcement learning and deep convolutional networks.","translation":"单一算法结合强化学习与深度卷积网络。","bbox":[42,527,286,696],"confidence":"high","refs":[]},
+    {"id":"S004","page":1,"type":"paragraph","order":4,"original_text":"Definition of the optimal action-value function.","translation":"最优动作价值函数的定义。","bbox":[306,205,552,321],"confidence":"high","refs":[]},
+    {"id":"S005","page":1,"type":"paragraph","order":5,"original_text":"Sources of instability and the experience-replay and target-network remedies.","translation":"不稳定性的来源，以及经验回放和目标网络的应对机制。","bbox":[306,322,552,470],"confidence":"high","refs":[]},
+    {"id":"S006","page":1,"type":"paragraph","order":6,"original_text":"Replay-memory sampling and the DQN loss.","translation":"回放记忆采样与 DQN 损失函数。","bbox":[306,470,552,702],"confidence":"high","refs":["F001"]},
+    {"id":"S007","page":2,"type":"paragraph","order":7,"original_text":"A common architecture and training setup is applied to 49 Atari games.","translation":"同一架构与训练设置用于 49 款 Atari 游戏。","bbox":[36,327,287,520],"confidence":"high","refs":["F002"]},
+    {"id":"S008","page":2,"type":"paragraph","order":8,"original_text":"DQN is compared with prior methods, random play and a professional human tester.","translation":"DQN 与既有方法、随机策略及专业人类测试员比较。","bbox":[306,327,555,520],"confidence":"high","refs":["F003","T002"]},
+    {"id":"S009","page":3,"type":"paragraph","order":9,"original_text":"Ablations test replay memory, a separate target network and deep convolutional representation.","translation":"消融实验检验回放记忆、独立目标网络和深度卷积表示。","bbox":[42,590,286,658],"confidence":"high","refs":["T003","T004"]},
+    {"id":"S010","page":3,"type":"paragraph","order":10,"original_text":"t-SNE analysis of learned state representations and generalization across policies.","translation":"使用 t-SNE 分析学得的状态表示及跨策略泛化。","bbox":[42,658,552,770],"confidence":"high","refs":["F004","F005","F006"]},
+    {"id":"S011","page":4,"type":"paragraph","order":11,"original_text":"DQN succeeds in diverse games but struggles with extended planning.","translation":"DQN 在多类游戏中成功，但仍难以进行长时规划。","bbox":[42,500,286,590],"confidence":"high","refs":[]},
+    {"id":"S012","page":4,"type":"paragraph","order":12,"original_text":"A single end-to-end architecture learns control policies with minimal prior knowledge.","translation":"单一端到端架构以极少先验知识学习控制策略。","bbox":[42,590,286,744],"confidence":"high","refs":[]},
+    {"id":"S013","page":4,"type":"paragraph","order":13,"original_text":"Replay is connected to biological inspiration and future prioritized replay.","translation":"经验回放与生物学启发及未来的优先回放方向相联系。","bbox":[306,500,552,665],"confidence":"high","refs":[]},
+    {"id":"S014","page":5,"type":"note","order":14,"original_text":"Acknowledgements, author contributions and competing-interest statement.","translation":"致谢、作者贡献与利益冲突声明。","bbox":[306,392,552,620],"confidence":"high","refs":[]},
+    {"id":"S015","page":6,"type":"paragraph","order":15,"original_text":"Frame preprocessing removes flicker, extracts luminance, rescales and stacks four frames.","translation":"帧预处理消除闪烁、提取亮度、缩放并堆叠四帧。","bbox":[42,92,286,224],"confidence":"high","refs":[]},
+    {"id":"S016","page":6,"type":"note","order":16,"original_text":"Code-availability statement.","translation":"代码可用性声明。","bbox":[42,224,286,252],"confidence":"high","refs":[]},
+    {"id":"S017","page":6,"type":"paragraph","order":17,"original_text":"Detailed convolutional-network architecture.","translation":"卷积神经网络详细架构。","bbox":[42,252,286,442],"confidence":"high","refs":["F001"]},
+    {"id":"S018","page":6,"type":"paragraph","order":18,"original_text":"Per-game training with shared settings and clipped rewards.","translation":"各游戏独立训练、共享设置并裁剪奖励。","bbox":[42,442,286,617],"confidence":"high","refs":[]},
+    {"id":"S019","page":6,"type":"paragraph","order":19,"original_text":"RMSProp, epsilon schedule, replay size, frame skipping and hyperparameter selection.","translation":"RMSProp、探索率计划、回放大小、跳帧和超参数选择。","bbox":[42,617,286,785],"confidence":"high","refs":["T001"]},
+    {"id":"S020","page":6,"type":"paragraph","order":20,"original_text":"Minimal prior knowledge and agent evaluation procedure.","translation":"最小先验知识与智能体评估程序。","bbox":[306,92,552,316],"confidence":"high","refs":[]},
+    {"id":"S021","page":6,"type":"paragraph","order":21,"original_text":"Controlled professional-human evaluation.","translation":"受控的专业人类评估。","bbox":[306,316,552,410],"confidence":"high","refs":[]},
+    {"id":"S022","page":6,"type":"paragraph","order":22,"original_text":"Partial observability and history as state.","translation":"部分可观测性以及以历史序列作为状态。","bbox":[306,410,552,600],"confidence":"high","refs":[]},
+    {"id":"S023","page":6,"type":"paragraph","order":23,"original_text":"Discounted return, Bellman equation and function approximation.","translation":"折扣回报、贝尔曼方程与函数逼近。","bbox":[306,600,552,785],"confidence":"medium","refs":[]},
+    {"id":"S024","page":7,"type":"paragraph","order":24,"original_text":"Q-network Bellman-error optimization.","translation":"Q 网络的贝尔曼误差优化。","bbox":[42,55,286,330],"confidence":"medium","refs":[]},
+    {"id":"S025","page":7,"type":"paragraph","order":25,"original_text":"Model-free, off-policy learning with epsilon-greedy exploration.","translation":"无模型、离策略学习与 ε-贪心探索。","bbox":[42,330,286,455],"confidence":"high","refs":[]},
+    {"id":"S026","page":7,"type":"paragraph","order":26,"original_text":"Benefits and limitations of experience replay.","translation":"经验回放的优势与局限。","bbox":[42,455,552,620],"confidence":"high","refs":[]},
+    {"id":"S027","page":7,"type":"paragraph","order":27,"original_text":"Target-network delay and clipped TD error.","translation":"目标网络延迟与 TD 误差裁剪。","bbox":[306,205,552,535],"confidence":"medium","refs":[]},
+    {"id":"S028","page":7,"type":"paragraph","order":28,"original_text":"Algorithm 1: deep Q-learning with experience replay.","translation":"算法 1：带经验回放的深度 Q 学习。","bbox":[306,535,552,780],"confidence":"medium","refs":[]}
+  ],
+  "pages": [
+    {"page":1,"block_ids":["S001","S002","S003","S004","S005","S006"]},
+    {"page":2,"block_ids":["F001","S007","F002","S008"]},
+    {"page":3,"block_ids":["F003","S009","S010"]},
+    {"page":4,"block_ids":["F004","S011","S012","S013"]},
+    {"page":5,"block_ids":["S014"]},
+    {"page":6,"block_ids":["S015","S016","S017","S018","S019","S020","S021","S022","S023"]},
+    {"page":7,"block_ids":["S024","S025","S026","S027","S028"]},
+    {"page":8,"block_ids":["F005"]},
+    {"page":9,"block_ids":["F006"]},
+    {"page":10,"block_ids":["T001"]},
+    {"page":11,"block_ids":["T002"]},
+    {"page":12,"block_ids":["T003"]},
+    {"page":13,"block_ids":["T004"]}
+  ],
+  "figures": [
+    {"id":"F001","page":2,"caption_id":"C001","image_path":"assets/fig1_network.png","bbox":[95,45,505,270],"placement_hint":"near_first_mention","placed_after":"S006","alt_text":"DQN convolutional network architecture"},
+    {"id":"F002","page":2,"caption_id":"C002","image_path":"assets/fig2_training_curves.png","bbox":[125,465,470,700],"placement_hint":"near_first_mention","placed_after":"S007","alt_text":"Training score and average Q-value curves"},
+    {"id":"F003","page":3,"caption_id":"C003","image_path":"assets/fig3_game_performance.png","bbox":[120,35,505,500],"placement_hint":"near_first_mention","placed_after":"S008","alt_text":"Normalized DQN performance over 49 Atari games"},
+    {"id":"F004","page":4,"caption_id":"C004","image_path":"assets/fig4_tsne_values.png","bbox":[95,45,505,390],"placement_hint":"near_first_mention","placed_after":"S010","alt_text":"t-SNE state embedding coloured by predicted value"},
+    {"id":"F005","page":8,"caption_id":"C005","image_path":"assets/extended_fig1_human_agent_tsne.png","bbox":[30,40,565,480],"placement_hint":"extended_data","placed_after":"S010","alt_text":"Human and DQN state embeddings"},
+    {"id":"F006","page":9,"caption_id":"C006","image_path":"assets/extended_fig2_value_functions.png","bbox":[35,40,560,570],"placement_hint":"extended_data","placed_after":"S010","alt_text":"Value functions in Breakout and Pong"}
+  ],
+  "tables": [
+    {"id":"T001","page":10,"image_path":"assets/extended_table1_hyperparameters.png","bbox":[30,45,565,390],"placed_after":"S019"},
+    {"id":"T002","page":11,"image_path":"assets/extended_table2_game_scores.png","bbox":[35,45,560,780],"placed_after":"S008"},
+    {"id":"T003","page":12,"image_path":"assets/extended_table3_ablation.png","bbox":[35,45,560,260],"placed_after":"S009"},
+    {"id":"T004","page":13,"image_path":"assets/extended_table4_linear_comparison.png","bbox":[35,45,400,260],"placed_after":"S009"}
+  ],
+  "glossary": [
+    {"term":"deep Q-network (DQN)","translation":"深度 Q 网络（DQN）","note":"DQN after first use"},
+    {"term":"experience replay","translation":"经验回放","note":"uniform replay unless otherwise specified"},
+    {"term":"target network","translation":"目标网络","note":"separate periodically copied Q-network"},
+    {"term":"action-value function","translation":"动作价值函数","note":"Q-function"},
+    {"term":"return","translation":"回报","note":"discounted cumulative reward"},
+    {"term":"off-policy","translation":"离策略","note":"target policy differs from behaviour policy"}
+  ]
+}
