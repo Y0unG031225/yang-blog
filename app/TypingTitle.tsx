@@ -8,8 +8,8 @@ export function TypingTitle({ text }: { text: string }) {
   useEffect(() => {
     const characters = Array.from(text);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisibleText(text);
-      return;
+      const frame = requestAnimationFrame(() => setVisibleText(text));
+      return () => cancelAnimationFrame(frame);
     }
 
     let index = 0;

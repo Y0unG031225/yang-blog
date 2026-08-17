@@ -1,3 +1,5 @@
+/* The optional user-provided avatar is served as a static export asset. */
+/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import { PageShell } from "../components";
 import { siteConfig } from "../site.config";
@@ -13,7 +15,7 @@ export default function AboutPage() {
   ].filter(Boolean) as { label: string; href: string; external: boolean }[];
 
   return <PageShell>
-    <SubpageHero title="About"/>
+    <SubpageHero title="关于"/>
     <main className="shell page-main about-page subpage-content">
       <header className="page-hero about-hero">
         <div>{siteConfig.avatar && <img className="profile-avatar" src={siteConfig.avatar} alt={`${siteConfig.ownerName}的头像`}/>}<span className="eyebrow">ABOUT ME</span><h1>你好，我是<br/>{siteConfig.ownerName}。</h1><small>{siteConfig.role} · {siteConfig.direction}</small></div>

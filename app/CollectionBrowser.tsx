@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { CollectionPostRow } from "./CollectionPostRow";
-import type { BlogPost } from "./lib/posts";
+import type { BlogPostSummary } from "./lib/posts";
 
-type SummaryPost = Omit<BlogPost, "content">;
+type SummaryPost = BlogPostSummary;
 
 export function CollectionBrowser({ mode, posts, categories, tags }: {
   mode: "categories" | "tags";

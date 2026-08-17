@@ -11,8 +11,8 @@ export function SiteHeader() {
   </div></header>;
 }
 
-export function SiteFooter() { return <footer className="site-footer"><p>© {new Date().getFullYear()} {siteConfig.siteName} · {siteConfig.footerText}</p></footer>; }
-export function PageShell({ children }: { children: React.ReactNode }) { return <><SiteHeader />{children}<SiteFooter /></>; }
+export function SiteFooter() { return <footer className="site-footer"><nav aria-label="页脚导航"><Link href="/projects">项目</Link><Link href="/resources">资源</Link><Link href="/rss.xml">RSS</Link></nav><p>© {new Date().getFullYear()} {siteConfig.siteName} · {siteConfig.footerText}</p></footer>; }
+export function PageShell({ children }: { children: React.ReactNode }) { return <><a className="skip-link" href="#main-content">跳到主要内容</a><SiteHeader /><div className="page-content" id="main-content" tabIndex={-1}>{children}</div><SiteFooter /></>; }
 
 export function SectionHeading({ eyebrow, title, link, linkText = "View all" }: { eyebrow: string; title: string; link?: string; linkText?: string }) {
   return <div className="section-heading"><div>{eyebrow && <span className="eyebrow">{eyebrow}</span>}<h2>{title}</h2></div>{link && <Link className="text-link" href={link}>{linkText} →</Link>}</div>;

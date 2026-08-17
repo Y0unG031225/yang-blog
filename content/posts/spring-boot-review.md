@@ -7,6 +7,7 @@ categoryKey: study
 tags: [Java, Spring Boot]
 tone: amber
 read: 6 分钟
+socialImage: "/og/posts/spring-boot-review.jpg"
 draft: false
 ---
 

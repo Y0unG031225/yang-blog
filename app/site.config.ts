@@ -5,12 +5,14 @@
 export const siteConfig = {
   // 网站基础信息
   siteName: "Yang's Blog",
-  siteUrl: "https://growth-notes-yang-2026.zyyy7893.chatgpt.site",
+  siteUrl: "https://y0ung031225.github.io",
+  basePath: "/yang-blog",
   language: "zh-CN",
-  heroTitle: "Welcome to Yang's Blog",
-  description: "A personal technical blog about AI, deep learning, backend development and graduate research.",
-  shortDescription: "AI · Deep Learning · Backend",
-  footerText: "Built for learning, research and code.",
+  heroTitle: "在学习、研究与代码之间持续生长",
+  description: "Yang 的个人技术博客，记录深度学习论文精读、人工智能研究与后端工程实践。",
+  shortDescription: "论文精读 · 人工智能 · 后端开发",
+  footerText: "记录学习、研究与代码。",
+  launchedAt: "2026-07-18",
 
   // 个人信息
   ownerName: "Yang",
@@ -28,7 +30,7 @@ export const siteConfig = {
   // 联系方式留空时不会显示
   contact: {
     email: "2130228174@qq.com",
-    github: "2130228174@qq.com",
+    github: "https://github.com/Y0unG031225",
     bilibili: "",
   },
 

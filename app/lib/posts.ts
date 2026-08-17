@@ -11,9 +11,12 @@ export type BlogPost = {
   tags: string[];
   tone: string;
   read: string;
+  socialImage?: string;
   draft: boolean;
   content: string;
 };
+
+export type BlogPostSummary = Omit<BlogPost, "content">;
 
 type Frontmatter = Record<string, string | string[] | boolean>;
 
@@ -78,6 +81,7 @@ function toPost(file: string, raw: string): BlogPost {
     tags: Array.isArray(data.tags) ? data.tags : [],
     tone: typeof data.tone === "string" ? data.tone : "blue",
     read: typeof data.read === "string" ? data.read : estimateReadTime(content),
+    socialImage: typeof data.socialImage === "string" ? data.socialImage : undefined,
     draft: data.draft === true,
     content,
   };
@@ -90,6 +94,22 @@ export const posts = Object.entries(markdownFiles)
 
 export function getPost(slug: string) {
   return posts.find(post => post.slug === slug);
+}
+
+export function getPostSummaries(): BlogPostSummary[] {
+  return posts.map(post => ({
+    slug: post.slug,
+    title: post.title,
+    description: post.description,
+    date: post.date,
+    category: post.category,
+    categoryKey: post.categoryKey,
+    tags: post.tags,
+    tone: post.tone,
+    read: post.read,
+    socialImage: post.socialImage,
+    draft: post.draft,
+  }));
 }
 
 export function getCategories() {

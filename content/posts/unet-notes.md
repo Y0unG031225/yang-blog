@@ -7,6 +7,7 @@ categoryKey: graduate
 tags: [论文阅读, 医学图像分割]
 tone: sage
 read: 8 分钟
+socialImage: "/og/posts/unet-notes.jpg"
 draft: false
 ---
 

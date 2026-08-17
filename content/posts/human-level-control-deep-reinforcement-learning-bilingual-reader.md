@@ -7,6 +7,7 @@ categoryKey: "paper-reading"
 tags: ["DQN", "强化学习", "深度学习", "Atari", "Nature"]
 tone: "blue"
 read: "35 分钟"
+socialImage: "/og/posts/human-level-control-deep-reinforcement-learning-bilingual-reader.jpg"
 draft: false
 ---
 # Human-level control through deep reinforcement learning
@@ -123,7 +124,7 @@ The target-network parameters $\theta_i^-$ are updated with the Q-network parame
 **Placed near:** p.1 S006  
 **Source:** p.2 C001
 
-![Figure 1: DQN network architecture](/readers/dqn-human-level-control/fig1_network.png)
+![Figure 1: DQN network architecture](/readers/dqn-human-level-control/fig1_network.webp)
 
 **Original caption:** Schematic illustration of the convolutional neural network. The input is an $84\times84\times4$ image, followed by three convolutional layers and two fully connected layers with one output for each valid action. Each hidden layer is followed by a rectifier nonlinearity.
 
@@ -150,7 +151,7 @@ The target-network parameters $\theta_i^-$ are updated with the Q-network parame
 **Placed near:** p.2 S007  
 **Source:** p.2 C002
 
-![Figure 2: training curves](/readers/dqn-human-level-control/fig2_training_curves.png)
+![Figure 2: training curves](/readers/dqn-human-level-control/fig2_training_curves.webp)
 
 **Original caption:** Training curves tracking the agent's average score and average predicted action-value. Panels a and b show average score per episode for Space Invaders and Seaquest; panels c and d show average predicted action-value on held-out states. Q-values are scaled because rewards were clipped.
 
@@ -173,7 +174,7 @@ The target-network parameters $\theta_i^-$ are updated with the Q-network parame
 **Placed near:** pp.2-3 S008  
 **Source:** p.3 C003
 
-![Figure 3: normalized performance over 49 Atari games](/readers/dqn-human-level-control/fig3_game_performance.png)
+![Figure 3: normalized performance over 49 Atari games](/readers/dqn-human-level-control/fig3_game_performance.webp)
 
 **Original caption:** DQN performance is normalized so that random play is 0% and a professional human tester is 100%: $100\times(\text{DQN}-\text{random})/(\text{human}-\text{random})$. DQN outperforms competing methods in almost all games and reaches at least 75% of human performance in the majority of games. Error bars are s.d. over 30 evaluation episodes.
 
@@ -205,7 +206,7 @@ The target-network parameters $\theta_i^-$ are updated with the Q-network parame
 **Placed near:** pp.3-4 S010  
 **Source:** p.4 C004
 
-![Figure 4: t-SNE embedding coloured by state value](/readers/dqn-human-level-control/fig4_tsne_values.png)
+![Figure 4: t-SNE embedding coloured by state value](/readers/dqn-human-level-control/fig4_tsne_values.webp)
 
 **Original caption:** Two-dimensional t-SNE embedding of last-hidden-layer representations for states experienced while DQN played Space Invaders. Points are coloured by predicted state value $V$. Full and nearly complete screens can both have high value because completing a screen yields a new screen; visually dissimilar screens may map nearby when their expected values are similar.
 
@@ -385,7 +386,7 @@ Value iteration would converge in principle, but estimating a separate value for
 **Placed near:** p.3 S010  
 **Source:** p.8 C005
 
-![Extended Data Figure 1](/readers/dqn-human-level-control/extended_fig1_human_agent_tsne.png)
+![Extended Data Figure 1](/readers/dqn-human-level-control/extended_fig1_human_agent_tsne.webp)
 
 **Original caption:** Two-dimensional t-SNE embedding of DQN last-hidden-layer representations for Space Invaders states experienced during a combination of human (30 min) and agent (2 h) play. Similar structure and overlapping clusters for human-play (orange) and DQN-play (blue) states suggest that the learned representation generalizes beyond DQN's own policy.
 
@@ -397,7 +398,7 @@ Value iteration would converge in principle, but estimating a separate value for
 **Placed near:** p.3 S010  
 **Source:** p.9 C006
 
-![Extended Data Figure 2](/readers/dqn-human-level-control/extended_fig2_value_functions.png)
+![Extended Data Figure 2](/readers/dqn-human-level-control/extended_fig2_value_functions.webp)
 
 **Original caption:** In Breakout, predicted state value rises in anticipation of breaking through the brick wall and clearing many bricks. In Pong, action-values diverge as the agent must move the paddle toward the ball, then rise when a point becomes likely. Dashed ball trajectories are illustrative only and were not shown to the agent.
 
@@ -409,7 +410,7 @@ Value iteration would converge in principle, but estimating a separate value for
 **Placed near:** p.6 S019  
 **Source:** p.10 T001
 
-![Extended Data Table 1](/readers/dqn-human-level-control/extended_table1_hyperparameters.png)
+![Extended Data Table 1](/readers/dqn-human-level-control/extended_table1_hyperparameters.webp)
 
 **中文表注:** 主要设置包括：小批量 32、回放记忆 1,000,000、输入历史 4 帧、目标网络更新频率 10,000 次参数更新、折扣因子 0.99、动作重复 4、学习率 0.00025、初始/最终探索率 1/0.1，以及学习开始前 50,000 帧回放填充。参数通过 5 款验证游戏上的非正式搜索选定，未做系统网格搜索。
 
@@ -419,7 +420,7 @@ Value iteration would converge in principle, but estimating a separate value for
 **Placed near:** pp.2-3 S008  
 **Source:** p.11 T002
 
-![Extended Data Table 2](/readers/dqn-human-level-control/extended_table2_game_scores.png)
+![Extended Data Table 2](/readers/dqn-human-level-control/extended_table2_game_scores.webp)
 
 **中文表注:** 表中依次给出随机策略、最佳线性学习器、Contingency/SARSA 智能体、专业人类测试员、DQN 均值（±标准差）及归一化 DQN 人类百分比。最后一列采用图 3 的归一化公式，因此在“人类分数接近随机分数”或分母较小时需谨慎解释。
 
@@ -429,7 +430,7 @@ Value iteration would converge in principle, but estimating a separate value for
 **Placed near:** p.3 S009  
 **Source:** p.12 T003
 
-![Extended Data Table 3](/readers/dqn-human-level-control/extended_table3_ablation.png)
+![Extended Data Table 3](/readers/dqn-human-level-control/extended_table3_ablation.webp)
 
 **中文表注:** 在 5 款验证游戏上，同时使用经验回放与独立目标 Q 网络时表现最佳；去掉其中任一组件通常明显降分，二者都去掉时最差。该实验只训练 1000 万帧，且评估回合未截断为 5 分钟，不能直接与主结果数值逐项比较。
 
@@ -439,7 +440,7 @@ Value iteration would converge in principle, but estimating a separate value for
 **Placed near:** p.3 S009  
 **Source:** p.13 T004
 
-![Extended Data Table 4](/readers/dqn-human-level-control/extended_table4_linear_comparison.png)
+![Extended Data Table 4](/readers/dqn-human-level-control/extended_table4_linear_comparison.webp)
 
 **中文表注:** 在相同的经验回放与独立目标网络框架下，卷积 DQN 在 5 款验证游戏上均显著优于仅使用单一线性层的函数逼近器，说明深度卷积表示是性能的重要来源。
 

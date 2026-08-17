@@ -2,5 +2,14 @@ import type { MetadataRoute } from "next";
 import { projects } from "./data";
 import { posts } from "./lib/posts";
 import { siteConfig } from "./site.config";
+import { absoluteUrl } from "./lib/urls";
 export const dynamic = "force-static";
-export default function sitemap(): MetadataRoute.Sitemap { const base = process.env.NEXT_PUBLIC_SITE_URL ?? siteConfig.siteUrl; const prefix = process.env.NEXT_PUBLIC_BASE_PATH ?? ""; return ["", "/archives", "/categories", "/tags", "/projects", "/resources", "/about"].map(path => ({ url: base + prefix + path, lastModified: new Date() })).concat(posts.map(p => ({ url: `${base}${prefix}/posts/${p.slug}`, lastModified: new Date(p.date) })), projects.map(p => ({ url: `${base}${prefix}/projects/${p.slug}`, lastModified: new Date() }))); }
+export default function sitemap(): MetadataRoute.Sitemap {
+  const latestPostDate = posts[0]?.date ?? siteConfig.launchedAt;
+  const corePages = ["/", "/archives", "/categories", "/tags"];
+  const staticPages = ["/projects", "/resources", "/about"];
+  return corePages.map(path => ({ url: absoluteUrl(path), lastModified: new Date(latestPostDate) }))
+    .concat(staticPages.map(path => ({ url: absoluteUrl(path), lastModified: new Date(siteConfig.launchedAt) })))
+    .concat(posts.map(post => ({ url: absoluteUrl(`/posts/${post.slug}`), lastModified: new Date(post.date) })))
+    .concat(projects.map(project => ({ url: absoluteUrl(`/projects/${project.slug}`), lastModified: new Date(project.updated) })));
+}
