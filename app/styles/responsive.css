@@ -1,9 +1,18 @@
 @media (max-width: 1250px) {
+  .article-reading-layout,
+  .article-reading-layout.no-toc {
+    left: auto;
+    width: min(800px, 100%);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin: 16px auto 0;
+    transform: none;
+  }
   .toc {
     position: static;
-    width: min(800px, 100%);
+    width: 100%;
     max-height: min(46vh, 420px);
-    margin: 22px auto 0;
+    margin: 0;
     padding: 18px 18px 20px;
     border: 1px solid var(--line);
     border-radius: 6px;

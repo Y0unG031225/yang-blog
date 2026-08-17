@@ -73,11 +73,9 @@
   justify-content: center;
 }
 .toc {
-  position: fixed;
-  z-index: 12;
+  position: sticky;
   top: 105px;
-  left: max(18px, calc(50vw - 650px));
-  width: 230px;
+  width: 100%;
   max-height: calc(100vh - 124px);
   padding: 8px 14px 16px 0;
   overflow-y: auto;
@@ -666,21 +664,33 @@ html[data-theme="light"] .prose .math-display {
   border-color: #dce4ea;
   box-shadow: 0 3px 14px #121f2a08;
 }
+.article-reading-layout {
+  position: relative;
+  left: 50%;
+  display: grid;
+  width: min(1100px, calc(100vw - 36px));
+  grid-template-columns: 230px minmax(0, 800px);
+  align-items: start;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 16px;
+  transform: translateX(-50%);
+}
+.article-reading-layout.no-toc {
+  grid-template-columns: minmax(0, 800px);
+}
 .article-layout {
   display: grid;
-  width: min(800px, 100%);
+  width: 100%;
   grid-template-columns: minmax(0, 1fr);
   justify-content: center;
   align-items: start;
-  margin: 16px auto 0;
+  margin: 0;
   padding: 44px 54px 58px;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--panel);
   box-shadow: 0 18px 50px #0003;
-}
-.article-layout.without-toc {
-  grid-template-columns: minmax(0, 1fr);
 }
 .article-layout .prose {
   min-width: 0;
