@@ -1,35 +1,89 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { CollectionPostRow } from "./CollectionPostRow";
 import type { BlogPostSummary } from "./lib/posts";
 
-type SummaryPost = BlogPostSummary;
-
-export function CollectionBrowser({ mode, posts, categories, tags }: {
+export function CollectionBrowser({
+  mode,
+  posts,
+  categories,
+  tags,
+}: {
   mode: "categories" | "tags";
-  posts: SummaryPost[];
+  posts: BlogPostSummary[];
   categories: [string, string][];
   tags: string[];
 }) {
   const query = useSearchParams();
-  const category = query.get("category") ?? "";
-  const tag = query.get("tag") ?? "";
-  const selectedCategory = categories.find(([key]) => key === category);
-  const selectedTag = tags.includes(tag) ? tag : "";
-  const filtered = mode === "categories"
-    ? (selectedCategory ? posts.filter(post => post.categoryKey === selectedCategory[0]) : posts)
-    : (selectedTag ? posts.filter(post => post.tags.includes(selectedTag)) : posts);
+  const selectedTag = query.get("tag") ?? "";
 
-  return <>
-    {mode === "categories" ? <nav className="taxonomy-grid" aria-label="文章分类">{categories.map(([key, label]) => {
-      const count = posts.filter(post => post.categoryKey === key).length;
-      return <Link className={selectedCategory?.[0] === key ? "active" : ""} key={key} href={`/categories?category=${key}`}><span>{label.slice(0, 1)}</span><div><strong>{label}</strong><small>{count} 篇文章</small></div><b>→</b></Link>;
-    })}</nav> : <nav className="tag-index" aria-label="文章标签">{tags.map(item => {
-      const count = posts.filter(post => post.tags.includes(item)).length;
-      return <Link className={selectedTag === item ? "active" : ""} key={item} href={`/tags?tag=${encodeURIComponent(item)}`}><span>#</span>{item}<small>{count}</small></Link>;
-    })}</nav>}
-    <section className="collection-results"><header><div><span className="eyebrow">{selectedCategory || selectedTag ? "SELECTED" : "ALL POSTS"}</span><h2>{selectedCategory?.[1] ?? (selectedTag ? `#${selectedTag}` : mode === "categories" ? "全部分类" : "全部标签")}</h2></div>{(selectedCategory || selectedTag) && <Link href={mode === "categories" ? "/categories" : "/tags"}>查看全部</Link>}</header><div>{filtered.map(post => <CollectionPostRow compact key={post.slug} post={post}/>)}</div></section>
-  </>;
+  if (mode === "categories") {
+    return (
+      <section className="fluid-card category-list" aria-label="Categories">
+        {categories.map(([key, label], index) => {
+          const categoryPosts = posts.filter(
+            (post) => post.categoryKey === key,
+          );
+          return (
+            <details key={key} open={index === 0}>
+              <summary>
+                <span>{label}</span>
+                <small>{categoryPosts.length}</small>
+              </summary>
+              <div className="category-post-list">
+                {categoryPosts.map((post) => (
+                  <CollectionPostRow compact key={post.slug} post={post} />
+                ))}
+              </div>
+            </details>
+          );
+        })}
+      </section>
+    );
+  }
+
+  const tagCounts = tags.map((tag) => ({
+    tag,
+    count: posts.filter((post) => post.tags.includes(tag)).length,
+  }));
+  const maxCount = Math.max(1, ...tagCounts.map(({ count }) => count));
+  const selectedPosts = selectedTag
+    ? posts.filter((post) => post.tags.includes(selectedTag))
+    : [];
+
+  return (
+    <>
+      <section className="fluid-card tag-cloud-card">
+        <nav className="tag-cloud" aria-label="Tags">
+          {tagCounts.map(({ tag, count }) => {
+            const scale = 0.86 + (count / maxCount) * 0.72;
+            return (
+              <Link
+                key={tag}
+                className={selectedTag === tag ? "active" : ""}
+                href={`/tags?tag=${encodeURIComponent(tag)}`}
+                style={{ "--tag-scale": scale } as CSSProperties}
+              >
+                {tag}
+              </Link>
+            );
+          })}
+        </nav>
+      </section>
+      {selectedTag && (
+        <section className="fluid-card tag-results">
+          <header>
+            <h2>#{selectedTag}</h2>
+            <Link href="/tags">All tags</Link>
+          </header>
+          {selectedPosts.map((post) => (
+            <CollectionPostRow compact key={post.slug} post={post} />
+          ))}
+        </section>
+      )}
+    </>
+  );
 }

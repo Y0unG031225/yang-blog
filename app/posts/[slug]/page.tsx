@@ -74,6 +74,26 @@ export default async function PostDetail({
 
   return (
     <PageShell>
+      <header
+        className="post-hero"
+        style={{
+          backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/city-hero-wide.webp')`,
+        }}
+      >
+        <div className="post-hero-overlay" />
+        <div className="post-hero-content">
+          <Link className="post-back-link" href="/archives">
+            ← Archives
+          </Link>
+          <h1>{post.title}</h1>
+          <p>{post.description}</p>
+          <div className="post-hero-meta">
+            <time dateTime={post.date}>{post.date}</time>
+            <span>{post.category}</span>
+            <span>{post.read}</span>
+          </div>
+        </div>
+      </header>
       <main className="article-shell">
         <script
           type="application/ld+json"
@@ -81,76 +101,62 @@ export default async function PostDetail({
             __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
           }}
         />
-        <Link className="back-link" href="/archives">
-          ← 返回文章归档
-        </Link>
-        <header className="article-header">
-          <div className="meta">
-            <span>{post.category}</span>
-            <time dateTime={post.date}>{post.date}</time>
-            <span>{post.read}</span>
-          </div>
-          <h1>{post.title}</h1>
-          <p>{post.description}</p>
-          <div className="tag-row">
-            {post.tags.map((tag) => (
-              <Link key={tag} href={`/tags?tag=${encodeURIComponent(tag)}`}>
-                #{tag}
-              </Link>
-            ))}
-          </div>
-        </header>
-        <PostShareActions title={post.title} description={post.description} />
         <div
           className={`article-reading-layout${headings.length ? "" : " no-toc"}`}
         >
-          <ArticleReadingTools headings={headings} />
+          <div className="article-side-spacer" aria-hidden="true" />
           <div className="article-layout">
+            <p className="post-updated">Last updated on {post.date}</p>
             <article className="prose">
               <MarkdownContent markdown={post.content} />
             </article>
+            <div className="post-taxonomy">
+              <Link href={`/categories?category=${post.categoryKey}`}>
+                {post.category}
+              </Link>
+              {post.tags.map((tag) => (
+                <Link key={tag} href={`/tags?tag=${encodeURIComponent(tag)}`}>
+                  #{tag}
+                </Link>
+              ))}
+            </div>
+            <aside className="license-box">
+              <strong>{post.title}</strong>
+              <span>
+                © {new Date(post.date).getFullYear()} Yang · CC BY-NC-SA 4.0
+              </span>
+            </aside>
+            <PostShareActions
+              title={post.title}
+              description={post.description}
+            />
+            <nav className="article-nav">
+              {newerPost ? (
+                <Link
+                  className="article-nav-card previous"
+                  href={`/posts/${newerPost.slug}`}
+                >
+                  <small>Previous</small>
+                  <strong>← {newerPost.title}</strong>
+                </Link>
+              ) : (
+                <span />
+              )}
+              {olderPost ? (
+                <Link
+                  className="article-nav-card next"
+                  href={`/posts/${olderPost.slug}`}
+                >
+                  <small>Next</small>
+                  <strong>{olderPost.title} →</strong>
+                </Link>
+              ) : (
+                <span />
+              )}
+            </nav>
           </div>
+          <ArticleReadingTools headings={headings} />
         </div>
-        <nav className="article-nav">
-          {newerPost ? (
-            <Link
-              className="article-nav-card previous"
-              href={`/posts/${newerPost.slug}`}
-            >
-              <small>上一篇 · 较新</small>
-              <strong>
-                <span>←</span>
-                {newerPost.title}
-              </strong>
-            </Link>
-          ) : (
-            <Link className="article-nav-card archive" href="/archives">
-              <small>已经是最新一篇</small>
-              <strong>
-                <span>←</span>返回文章归档
-              </strong>
-            </Link>
-          )}
-          {olderPost ? (
-            <Link
-              className="article-nav-card next"
-              href={`/posts/${olderPost.slug}`}
-            >
-              <small>下一篇 · 较早</small>
-              <strong>
-                {olderPost.title}
-                <span>→</span>
-              </strong>
-            </Link>
-          ) : (
-            <Link className="article-nav-card archive next" href="/archives">
-              <small>已经读到最后</small>
-              <strong>
-                查看文章归档<span>→</span>
-              </strong>
-            </Link>
-          )}
-        </nav>
       </main>
     </PageShell>
   );

@@ -1,20 +1,44 @@
 import type { Metadata } from "next";
-import { CollectionPostRow } from "../CollectionPostRow";
+import Link from "next/link";
 import { PageShell } from "../components";
 import { posts } from "../lib/posts";
 import { SubpageHero } from "../SubpageHero";
 
-export const metadata: Metadata = { title: "文章归档", description: "按时间浏览 Yang's Blog 的全部文章。" };
+export const metadata: Metadata = {
+  title: "Archives",
+  description: "Browse all posts on Yang's Blog by year.",
+};
 
 export default function ArchivesPage() {
-  const years = Array.from(new Set(posts.map(post => post.date.slice(0, 4))));
-  return <PageShell>
-    <SubpageHero title="文章归档"/>
-    <main className="collection-shell subpage-content">
-      <div className="archive-timeline">{years.map(year => {
-        const yearPosts = posts.filter(post => post.date.startsWith(year));
-        return <section className="archive-year" key={year}><header><h2>{year}</h2><span>{yearPosts.length} 篇</span></header><div>{yearPosts.map(post => <CollectionPostRow key={post.slug} post={post}/>)}</div></section>;
-      })}</div>
-    </main>
-  </PageShell>;
+  const years = Array.from(new Set(posts.map((post) => post.date.slice(0, 4))));
+  return (
+    <PageShell>
+      <SubpageHero title="Archives" />
+      <main className="collection-shell subpage-content">
+        <section className="fluid-card archive-card">
+          <p className="collection-total">{posts.length} posts in total</p>
+          <div className="archive-timeline">
+            {years.map((year) => {
+              const yearPosts = posts.filter((post) =>
+                post.date.startsWith(year),
+              );
+              return (
+                <section className="archive-year" key={year}>
+                  <h2>{year}</h2>
+                  <div>
+                    {yearPosts.map((post) => (
+                      <article className="archive-entry" key={post.slug}>
+                        <time dateTime={post.date}>{post.date.slice(5)}</time>
+                        <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        </section>
+      </main>
+    </PageShell>
+  );
 }
