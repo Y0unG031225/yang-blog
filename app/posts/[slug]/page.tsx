@@ -101,13 +101,15 @@ export default async function PostDetail({
           </div>
         </header>
         <PostShareActions title={post.title} description={post.description} />
-        <ArticleReadingTools headings={headings} />
         <div
-          className={`article-layout ${headings.length ? "" : "without-toc"}`}
+          className={`article-reading-layout${headings.length ? "" : " no-toc"}`}
         >
-          <article className="prose">
-            <MarkdownContent markdown={post.content} />
-          </article>
+          <ArticleReadingTools headings={headings} />
+          <div className="article-layout">
+            <article className="prose">
+              <MarkdownContent markdown={post.content} />
+            </article>
+          </div>
         </div>
         <nav className="article-nav">
           {newerPost ? (

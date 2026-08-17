@@ -90,16 +90,6 @@ export function ArticleReadingTools({
         if (activeIdRef.current !== current.id) {
           activeIdRef.current = current.id;
           setActiveId(current.id);
-          setCollapsedIds((collapsed) => {
-            const next = new Set(collapsed);
-            let headingId: string | undefined = current.id;
-            let changed = false;
-            while (headingId) {
-              changed = next.delete(headingId) || changed;
-              headingId = headingTree.parents[headingId];
-            }
-            return changed ? next : collapsed;
-          });
         }
       }
     };
@@ -174,7 +164,7 @@ export function ArticleReadingTools({
       if (frame.current !== null) cancelAnimationFrame(frame.current);
       copyButtons.forEach((button) => button.remove());
     };
-  }, [headings, headingTree]);
+  }, [headings]);
 
   useEffect(() => {
     const toc = tocRef.current;
@@ -234,15 +224,6 @@ export function ArticleReadingTools({
     );
     activeIdRef.current = id;
     setActiveId(id);
-    setCollapsedIds((collapsed) => {
-      const next = new Set(collapsed);
-      let headingId: string | undefined = id;
-      while (headingId) {
-        next.delete(headingId);
-        headingId = headingTree.parents[headingId];
-      }
-      return next;
-    });
   }
 
   function toggleHeading(id: string) {
