@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
+import { useMounted } from "./useMounted";
 
 type SearchPost = { slug: string; title: string; description: string; category: string; tags: string[] };
 type Theme = "dark" | "light";
@@ -19,15 +20,21 @@ function ActionIcon({ name }: { name: "search" | "moon" | "sun" }) {
 export function HeaderActions({ posts }: { posts: SearchPost[] }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [theme, setTheme] = useState<Theme>("dark");
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLElement>(null);
+  const searchButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
-  useEffect(() => {
-    setMounted(true);
-    setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
-  }, []);
+  const theme = useSyncExternalStore(
+    callback => {
+      const observer = new MutationObserver(callback);
+      observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+      return () => observer.disconnect();
+    },
+    () => document.documentElement.dataset.theme === "light" ? "light" : "dark",
+    () => "dark" as Theme,
+  );
 
   useEffect(() => {
     const header = document.querySelector<HTMLElement>(".site-header");
@@ -45,11 +52,21 @@ export function HeaderActions({ posts }: { posts: SearchPost[] }) {
   useEffect(() => {
     if (!open) return;
     const previousOverflow = document.body.style.overflow;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : searchButtonRef.current;
     document.body.style.overflow = "hidden";
-    inputRef.current?.focus();
-    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => { document.body.style.overflow = previousOverflow; window.removeEventListener("keydown", closeOnEscape); };
+    const focusFrame = requestAnimationFrame(() => inputRef.current?.focus());
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+      if (event.key !== "Tab" || !dialogRef.current) return;
+      const focusable = [...dialogRef.current.querySelectorAll<HTMLElement>('button, a[href], input, [tabindex]:not([tabindex="-1"])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => { cancelAnimationFrame(focusFrame); document.body.style.overflow = previousOverflow; window.removeEventListener("keydown", handleKeyDown); previousFocus?.focus(); };
   }, [open]);
 
   const results = useMemo(() => {
@@ -62,12 +79,11 @@ export function HeaderActions({ posts }: { posts: SearchPost[] }) {
     const next: Theme = theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
     localStorage.setItem("yang-blog-theme", next);
-    setTheme(next);
   }
 
   const modal = mounted && open ? createPortal(
     <div className="search-overlay" onMouseDown={event => { if (event.target === event.currentTarget) setOpen(false); }}>
-      <section className="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+      <section ref={dialogRef} className="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
         <header className="search-dialog-head"><div><span className="eyebrow">SEARCH</span><h2 id="search-title">搜索文章</h2></div><button type="button" className="search-close" aria-label="关闭搜索" onClick={() => setOpen(false)}>×</button></header>
         <label className="search-field"><ActionIcon name="search"/><input ref={inputRef} value={query} onChange={event => setQuery(event.target.value)} placeholder="输入标题、分类或标签…" aria-label="搜索关键词"/></label>
         <div className="search-results" aria-live="polite">
@@ -77,7 +93,7 @@ export function HeaderActions({ posts }: { posts: SearchPost[] }) {
     </div>, document.body) : null;
 
   return <div className="header-actions">
-    <button type="button" className="header-action" aria-label="搜索文章" title="搜索" onClick={() => setOpen(true)}><ActionIcon name="search"/></button>
+    <button ref={searchButtonRef} type="button" className="header-action" aria-label="搜索文章" title="搜索" onClick={() => setOpen(true)}><ActionIcon name="search"/></button>
     <button type="button" className="header-action" aria-label={theme === "dark" ? "切换到浅色模式" : "切换到深色模式"} title={theme === "dark" ? "浅色模式" : "深色模式"} onClick={toggleTheme}><ActionIcon name={theme === "dark" ? "moon" : "sun"}/></button>
     {modal}
   </div>;

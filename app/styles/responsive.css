@@ -1,0 +1,351 @@
+@media (max-width: 1250px) {
+  .toc {
+    position: static;
+    width: min(800px, 100%);
+    max-height: min(46vh, 420px);
+    margin: 22px auto 0;
+    padding: 18px 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--panel-2);
+  }
+  .toc > .eyebrow {
+    margin-left: 26px;
+  }
+  html[data-theme="light"] .toc {
+    background: #fff;
+    border-color: #ebebeb;
+    box-shadow: 0 5px 20px #1225360a;
+  }
+}
+@media (max-width: 850px) {
+  .toc {
+    width: 100%;
+    max-height: min(48vh, 380px);
+  }
+  .project-showcase,
+  .about-hero,
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .project-poster {
+    min-height: 400px;
+  }
+  .resource-row {
+    grid-template-columns: 55px 1fr;
+  }
+  .resource-row .button {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .blog-hero {
+    height: 100svh;
+    min-height: 560px;
+  }
+  .home-feed {
+    padding: 40px 35px;
+  }
+  .header-action {
+    width: 28px;
+  }
+  .search-overlay {
+    padding-top: 82px;
+  }
+  .search-dialog {
+    max-height: calc(100vh - 105px);
+  }
+  .mobile-menu-button {
+    display: grid;
+    order: 3;
+  }
+  .header-actions {
+    gap: 5px;
+    order: 2;
+  }
+  .header-controls {
+    gap: 7px;
+  }
+  .site-header {
+    transform: translateZ(0);
+    will-change: background-color;
+  }
+  .desktop-nav {
+    display: none;
+  }
+  .article-nav {
+    grid-template-columns: 1fr 1fr;
+  }
+  .back-to-top {
+    right: 16px;
+    bottom: 18px;
+  }
+  .article-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 34px 38px 46px;
+  }
+  .article-layout.without-toc {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 700px) {
+  .collection-shell {
+    width: calc(100% - 24px);
+    padding-top: 94px;
+  }
+  .archive-year {
+    grid-template-columns: 1fr;
+  }
+  .archive-year > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .archive-year > div {
+    padding: 0 20px;
+  }
+  .taxonomy-grid {
+    grid-template-columns: 1fr;
+  }
+  .collection-results {
+    padding: 0 20px 6px;
+  }
+  .subpage-hero {
+    height: 270px;
+  }
+  .subpage-hero-title h1 {
+    font-size: 2.35rem;
+  }
+  .collection-shell.subpage-content {
+    padding-top: 28px;
+  }
+  .page-main.subpage-content {
+    margin-top: 28px;
+    padding-top: 0;
+  }
+}
+@media (max-width: 620px) {
+  .post-engagement {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .share-actions {
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 560px) {
+  .nav-wrap {
+    width: calc(100% - 26px);
+  }
+  .hero-title h1 {
+    font-size: 2rem;
+  }
+  .hero-title p {
+    font-size: 0.88rem;
+  }
+  .section-heading {
+    align-items: start;
+    gap: 15px;
+  }
+  .post-card h3 {
+    font-size: 1.25rem;
+  }
+  .post-meta {
+    gap: 8px 13px;
+  }
+  .page-hero,
+  .article-header {
+    padding: 30px 24px;
+  }
+  .archive-grid {
+    padding: 5px 24px;
+  }
+  .article-header {
+    text-align: left;
+  }
+  .meta,
+  .article-header .tag-row {
+    justify-content: flex-start;
+  }
+  .project-row {
+    grid-template-columns: 35px 1fr;
+    padding: 23px 18px;
+  }
+  .project-row > strong {
+    display: none;
+  }
+  .project-detail > header h1 {
+    font-size: 2.5rem;
+  }
+  .project-poster b {
+    font-size: 2.7rem;
+  }
+  .resource-list {
+    padding: 0 22px;
+  }
+  .resource-row {
+    grid-template-columns: 1fr;
+  }
+  .resource-row .button {
+    grid-column: 1;
+  }
+  .not-found div {
+    flex-direction: column;
+  }
+  .blog-hero {
+    height: 100svh;
+    min-height: 500px;
+  }
+  .hero-title {
+    width: calc(100% - 24px);
+  }
+  .home-feed {
+    width: calc(100% - 20px);
+    margin-top: -35px;
+    padding: 30px 22px;
+  }
+  .page-main,
+  .article-shell,
+  .project-detail {
+    width: calc(100% - 24px);
+    margin-top: 30px;
+    margin: 0 auto 100px;
+    padding-top: 94px;
+  }
+  .header-controls {
+    gap: 6px;
+  }
+  .search-dialog-head {
+    padding: 22px 20px 14px;
+  }
+  .search-field {
+    margin: 0 20px 14px;
+  }
+  .search-results {
+    padding-inline: 10px;
+  }
+  .search-result p {
+    display: none;
+  }
+  .brand {
+    font-size: 1.15rem;
+    max-width: calc(100vw - 142px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .header-action {
+    width: 32px;
+    height: 36px;
+  }
+  .header-actions {
+    gap: 1px;
+  }
+  .mobile-menu-button {
+    margin-left: 2px;
+  }
+  .search-overlay {
+    padding-inline: 10px;
+  }
+  .search-dialog {
+    border-radius: 7px;
+  }
+  .reading-progress {
+    top: 64px;
+  }
+  .image-lightbox {
+    padding: 18px;
+  }
+  .image-lightbox-close {
+    top: 12px;
+    right: 12px;
+  }
+  .article-nav {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 45px;
+  }
+  .article-nav-card.next {
+    text-align: left;
+    align-items: flex-start;
+  }
+  .article-nav-card.next strong {
+    justify-content: flex-start;
+  }
+  .article-nav-card {
+    padding: 18px 20px;
+  }
+  .back-to-top {
+    width: 42px;
+    height: 44px;
+    right: 12px;
+    bottom: 12px;
+  }
+  .back-to-top small {
+    display: none;
+  }
+  .prose pre {
+    padding: 48px 16px 18px;
+  }
+  .prose .math-display {
+    margin: 1.4rem 0;
+    padding: 14px 12px;
+  }
+  .prose .math-display .katex {
+    font-size: 0.96em;
+  }
+  .article-layout {
+    padding: 26px 20px 36px;
+    border-radius: 5px;
+  }
+}
+@media (max-width: 480px) {
+  .collection-post {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  .collection-post > time {
+    padding: 0;
+  }
+  .collection-post p {
+    display: none;
+  }
+  .taxonomy-grid > a {
+    padding: 17px;
+  }
+  .tag-index {
+    padding: 18px;
+  }
+  .collection-results > header {
+    align-items: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .scroll-cue,
+  .typing-cursor {
+    animation: none;
+  }
+  .hero-title {
+    animation: none;
+  }
+  .mobile-nav-backdrop,
+  .mobile-nav-panel {
+    animation: none;
+  }
+  .reading-progress span,
+  .prose img,
+  .article-image,
+  .back-to-top,
+  .article-nav-card {
+    transition: none;
+  }
+  .image-lightbox {
+    animation: none;
+  }
+}

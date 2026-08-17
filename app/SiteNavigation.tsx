@@ -2,17 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useMounted } from "./useMounted";
 
 type IconName = "home" | "archive" | "grid" | "tag" | "user";
 
 const navLinks = [
-  { href: "/", icon: "home", label: "Home" },
-  { href: "/archives", icon: "archive", label: "Archives" },
-  { href: "/categories", icon: "grid", label: "Categories" },
-  { href: "/tags", icon: "tag", label: "Tags" },
-  { href: "/about", icon: "user", label: "About" },
+  { href: "/", icon: "home", label: "首页" },
+  { href: "/archives", icon: "archive", label: "归档" },
+  { href: "/categories", icon: "grid", label: "分类" },
+  { href: "/tags", icon: "tag", label: "标签" },
+  { href: "/about", icon: "user", label: "关于" },
 ] as const satisfies ReadonlyArray<{ href: string; icon: IconName; label: string }>;
 
 function NavIcon({ name }: { name: IconName }) {
@@ -38,25 +39,32 @@ function isActive(pathname: string, href: string) {
 export function SiteNavigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  const mounted = useMounted();
+  const panelRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
     const previousOverflow = document.body.style.overflow;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : menuButtonRef.current;
     document.body.style.overflow = "hidden";
-    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
-    window.addEventListener("keydown", closeOnEscape);
+    const focusFrame = requestAnimationFrame(() => panelRef.current?.querySelector<HTMLElement>("button, a[href]")?.focus());
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+      if (event.key !== "Tab" || !panelRef.current) return;
+      const focusable = [...panelRef.current.querySelectorAll<HTMLElement>('button, a[href], [tabindex]:not([tabindex="-1"])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
+      cancelAnimationFrame(focusFrame);
       document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("keydown", handleKeyDown);
+      previousFocus?.focus();
     };
   }, [open]);
 
@@ -73,16 +81,16 @@ export function SiteNavigation() {
 
   const drawer = mounted && open ? createPortal(
     <div className="mobile-nav-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) setOpen(false); }}>
-      <aside className="mobile-nav-panel" role="dialog" aria-modal="true" aria-label="移动端导航菜单">
+      <aside ref={panelRef} className="mobile-nav-panel" role="dialog" aria-modal="true" aria-label="移动端导航菜单">
         <div className="mobile-nav-head"><strong>Navigation</strong><button type="button" className="mobile-nav-close" aria-label="关闭导航菜单" onClick={() => setOpen(false)}>×</button></div>
         <nav aria-label="移动端主导航">{links(true)}</nav>
-        <p>Explore Yang&apos;s Blog</p>
+        <p>探索 Yang&apos;s Blog</p>
       </aside>
     </div>, document.body) : null;
 
   return <>
-    <nav className="desktop-nav" aria-label="Main navigation">{links()}</nav>
-    <button type="button" className="mobile-menu-button" aria-label="打开导航菜单" aria-expanded={open} onClick={() => setOpen(true)}>
+    <nav className="desktop-nav" aria-label="主导航">{links()}</nav>
+    <button ref={menuButtonRef} type="button" className="mobile-menu-button" aria-label="打开导航菜单" aria-expanded={open} onClick={() => setOpen(true)}>
       <span/><span/><span/>
     </button>
     {drawer}

@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import type { BlogPost } from "./lib/posts";
+import type { BlogPostSummary } from "./lib/posts";
 
-type SummaryPost = Omit<BlogPost, "content">;
+type SummaryPost = BlogPostSummary;
 
 function StaticPostCard({ post }: { post: SummaryPost }) {
   return <article className="post-card"><h3><Link href={`/posts/${post.slug}`}>{post.title}</Link></h3><p>{post.description}</p><div className="post-meta"><span>■ {post.date}</span><span>● {post.category}</span><span>● {post.tags.map(item => `#${item}`).join(" ")}</span><span>● {post.read}</span></div></article>;

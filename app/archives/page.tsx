@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "文章归档", description: "按时�
 export default function ArchivesPage() {
   const years = Array.from(new Set(posts.map(post => post.date.slice(0, 4))));
   return <PageShell>
-    <SubpageHero title="Archives"/>
+    <SubpageHero title="文章归档"/>
     <main className="collection-shell subpage-content">
       <div className="archive-timeline">{years.map(year => {
         const yearPosts = posts.filter(post => post.date.startsWith(year));

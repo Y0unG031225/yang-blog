@@ -7,7 +7,7 @@ categoryKey: study
 tags: [说明书]
 tone: blue
 read: 4 分钟
-draft: false
+draft: true
 ---
 
 # Yang's Blog 项目文件说明
@@ -79,4 +79,3 @@ git add content/posts
 git commit -m "publish new article"
 git push
 ```
-    

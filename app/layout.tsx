@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { AppBootstrap } from "./AppBootstrap";
+import { absoluteUrl, publicPath, siteRoot } from "./lib/urls";
 import { siteConfig } from "./site.config";
+import "highlight.js/styles/github-dark-dimmed.css";
 import "katex/dist/katex.min.css";
 import "./globals.css";
 
@@ -9,20 +11,26 @@ const themeScript = `(function(){try{var saved=localStorage.getItem('yang-blog-t
 export const viewport: Viewport = { themeColor: "#14283a" };
 
 export function generateMetadata(): Metadata {
-  const base = new URL(process.env.NEXT_PUBLIC_SITE_URL ?? siteConfig.siteUrl);
-  const asset = (pathname: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${pathname}`;
   return {
-    metadataBase: base,
+    metadataBase: new URL(siteRoot()),
     title: { default: siteConfig.siteName, template: `%s · ${siteConfig.siteName}` },
     description: siteConfig.description,
-    manifest: asset("/manifest.webmanifest"),
+    alternates: { canonical: siteRoot(), types: { "application/rss+xml": absoluteUrl("/rss.xml") } },
+    manifest: publicPath("/manifest.webmanifest"),
     appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Yang's Blog" },
-    icons: { icon: [{ url: asset("/favicon.svg"), type: "image/svg+xml" }, { url: asset("/icons/icon-192.png"), sizes: "192x192", type: "image/png" }], shortcut: asset("/favicon.svg"), apple: asset("/icons/apple-touch-icon.png") },
-    openGraph: { title: siteConfig.siteName, description: siteConfig.shortDescription, type: "website", images: [{ url: new URL(asset("/og-blog.png"), base).toString(), width: 1200, height: 630, alt: siteConfig.siteName }] },
-    twitter: { card: "summary_large_image", title: siteConfig.siteName, description: siteConfig.shortDescription, images: [new URL(asset("/og-blog.png"), base).toString()] },
+    icons: { icon: [{ url: publicPath("/favicon.svg"), type: "image/svg+xml" }, { url: publicPath("/icons/icon-192.png"), sizes: "192x192", type: "image/png" }], shortcut: publicPath("/favicon.svg"), apple: publicPath("/icons/apple-touch-icon.png") },
+    openGraph: { url: siteRoot(), siteName: siteConfig.siteName, locale: "zh_CN", title: siteConfig.siteName, description: siteConfig.shortDescription, type: "website", images: [{ url: absoluteUrl("/og.jpg"), width: 1200, height: 630, alt: siteConfig.siteName }] },
+    twitter: { card: "summary_large_image", title: siteConfig.siteName, description: siteConfig.shortDescription, images: [absoluteUrl("/og.jpg")] },
   };
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang={siteConfig.language} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: themeScript }}/></head><body><AppBootstrap/>{children}</body></html>;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "WebSite", "@id": `${siteRoot()}#website`, url: siteRoot(), name: siteConfig.siteName, description: siteConfig.description, inLanguage: siteConfig.language },
+      { "@type": "Person", "@id": `${siteRoot()}#person`, name: siteConfig.ownerName, url: siteRoot(), sameAs: [siteConfig.contact.github].filter(Boolean) },
+    ],
+  };
+  return <html lang={siteConfig.language} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: themeScript }}/><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}/></head><body><AppBootstrap/>{children}</body></html>;
 }

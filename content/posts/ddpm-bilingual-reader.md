@@ -7,6 +7,7 @@ categoryKey: "paper-reading"
 tags: ["DDPM", "Diffusion", "生成模型", "深度学习"]
 tone: "blue"
 read: "45 分钟"
+socialImage: "/og/posts/ddpm-bilingual-reader.jpg"
 draft: false
 ---
 > Jonathan Ho, Ajay Jain, Pieter Abbeel · NeurIPS 2020 · arXiv:2006.11239v2
@@ -82,7 +83,7 @@ arXiv:2006.11239v2 [cs.LG] 16 Dec 2020
 **Placed near:** p.1 S001
 **Source:** p.1
 
-![F001](/readers/ddpm/fig01.png)
+![F001](/readers/ddpm/fig01.webp)
 
 **Original caption:** Figure 1: Generated samples on CelebA-HQ 256×256 (left) and unconditional CIFAR10 (right)
 
@@ -177,7 +178,7 @@ q(xt|x0) =N (xt;√¯αtx0, (1− ¯αt)I) (4)
 **Placed near:** p.2 S002
 **Source:** p.2
 
-![F002](/readers/ddpm/fig02.png)
+![F002](/readers/ddpm/fig02.webp)
 
 **Original caption:** Figure 2: The directed graphical model considered in this work.
 
@@ -424,7 +425,7 @@ from Eqs. (12) and (13), is clearly differentiable with respect toθ and is read
 **Placed near:** p.4 S004
 **Source:** p.4
 
-![A001](/readers/ddpm/algorithms_1_2.png)
+![A001](/readers/ddpm/algorithms_1_2.webp)
 
 **Original caption:** Algorithms 1–2: Training and sampling.
 
@@ -522,7 +523,7 @@ score is 5.24, which is still better than many of the training set FID scores in
 **Placed near:** p.5 S005
 **Source:** p.5
 
-![T001](/readers/ddpm/table01.png)
+![T001](/readers/ddpm/table01.webp)
 
 **Original caption:** Table 1: CIFAR10 results; NLL in bits/dim.
 
@@ -535,7 +536,7 @@ score is 5.24, which is still better than many of the training set FID scores in
 **Placed near:** p.5 S005
 **Source:** p.5
 
-![T002](/readers/ddpm/table02.png)
+![T002](/readers/ddpm/table02.webp)
 
 **Original caption:** Table 2: Reverse-process parameterization and objective ablation.
 
@@ -607,7 +608,7 @@ and 4 transmitxT,..., x0 in sequence using a total expected codelength equal to 
 **Placed near:** p.6 S006
 **Source:** p.6
 
-![F003](/readers/ddpm/fig03.png)
+![F003](/readers/ddpm/fig03.webp)
 
 **Original caption:** Figure 3: LSUN Church samples. FID=7.89.
 
@@ -620,7 +621,7 @@ and 4 transmitxT,..., x0 in sequence using a total expected codelength equal to 
 **Placed near:** p.6 S006
 **Source:** p.6
 
-![F004](/readers/ddpm/fig04.png)
+![F004](/readers/ddpm/fig04.webp)
 
 **Original caption:** Figure 4: LSUN Bedroom samples. FID=4.90.
 
@@ -633,7 +634,7 @@ and 4 transmitxT,..., x0 in sequence using a total expected codelength equal to 
 **Placed near:** p.6 S006
 **Source:** p.6
 
-![A002](/readers/ddpm/algorithms_3_4.png)
+![A002](/readers/ddpm/algorithms_3_4.webp)
 
 **Original caption:** Algorithms 3–4: Sending and receiving x0.
 
@@ -724,7 +725,7 @@ p(xT ) to place all mass on a blank image, and, for the sake of argument, taking
 **Placed near:** p.7 S007
 **Source:** p.7
 
-![F005](/readers/ddpm/fig05.png)
+![F005](/readers/ddpm/fig05.webp)
 
 **Original caption:** Figure 5: CIFAR10 rate–distortion over reverse time.
 
@@ -737,7 +738,7 @@ p(xT ) to place all mass on a blank image, and, for the sake of argument, taking
 **Placed near:** p.7 S007
 **Source:** p.7
 
-![F006](/readers/ddpm/fig06.png)
+![F006](/readers/ddpm/fig06.webp)
 
 **Original caption:** Figure 6: CIFAR10 progressive generation.
 
@@ -750,7 +751,7 @@ p(xT ) to place all mass on a blank image, and, for the sake of argument, taking
 **Placed near:** p.7 S007
 **Source:** p.7
 
-![F007](/readers/ddpm/fig07.png)
+![F007](/readers/ddpm/fig07.webp)
 
 **Original caption:** Figure 7: Samples conditioned on shared CelebA-HQ intermediate latents.
 
@@ -825,7 +826,7 @@ Gaussian 扩散提供了一种比坐标遮挡更适合图像的归纳偏置，�
 **Placed near:** p.8 S008
 **Source:** p.8
 
-![F008](/readers/ddpm/fig08.png)
+![F008](/readers/ddpm/fig08.webp)
 
 **Original caption:** Figure 8: CelebA-HQ interpolation after 500 diffusion steps.
 
@@ -1183,7 +1184,7 @@ q(xt−1|xt, x0)− logpθ(x0|x1)
 **Placed near:** p.13 S013
 **Source:** p.13
 
-![T003](/readers/ddpm/table03.png)
+![T003](/readers/ddpm/table03.webp)
 
 **Original caption:** Table 3: LSUN 256×256 FID scores.
 
@@ -1196,7 +1197,7 @@ q(xt−1|xt, x0)− logpθ(x0|x1)
 **Placed near:** p.13 S013
 **Source:** p.13
 
-![T004](/readers/ddpm/table04.png)
+![T004](/readers/ddpm/table04.webp)
 
 **Original caption:** Table 4: CIFAR10 rate–distortion values.
 
@@ -1408,7 +1409,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 **Placed near:** p.16 S016
 **Source:** p.16
 
-![F009](/readers/ddpm/fig09.png)
+![F009](/readers/ddpm/fig09.webp)
 
 **Original caption:** Figure 9: Coarse-to-fine interpolation.
 
@@ -1421,7 +1422,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 **Placed near:** p.16 S016
 **Source:** p.16
 
-![F010](/readers/ddpm/fig10.png)
+![F010](/readers/ddpm/fig10.webp)
 
 **Original caption:** Figure 10: CIFAR10 progressive sampling quality over time.
 
@@ -1435,7 +1436,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 
 ### F011 · p.17
 
-![F011](/readers/ddpm/fig11.png)
+![F011](/readers/ddpm/fig11.webp)
 
 **Original caption:** Figure 11: CelebA-HQ 256×256 generated samples.
 
@@ -1445,7 +1446,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 
 ### F012A · p.18
 
-![F012A](/readers/ddpm/fig12a.png)
+![F012A](/readers/ddpm/fig12a.webp)
 
 **Original caption:** Figure 12a: Pixel-space nearest neighbors.
 
@@ -1455,7 +1456,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 
 ### F012B · p.18
 
-![F012B](/readers/ddpm/fig12b.png)
+![F012B](/readers/ddpm/fig12b.webp)
 
 **Original caption:** Figure 12b: Inception-feature nearest neighbors.
 
@@ -1465,7 +1466,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 
 ### F013 · p.19
 
-![F013](/readers/ddpm/fig13.png)
+![F013](/readers/ddpm/fig13.webp)
 
 **Original caption:** Figure 13: Unconditional CIFAR10 generated samples.
 
@@ -1475,7 +1476,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 
 ### F014 · p.20
 
-![F014](/readers/ddpm/fig14.png)
+![F014](/readers/ddpm/fig14.webp)
 
 **Original caption:** Figure 14: Unconditional CIFAR10 progressive generation.
 
@@ -1485,7 +1486,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 
 ### F015A · p.21
 
-![F015A](/readers/ddpm/fig15a.png)
+![F015A](/readers/ddpm/fig15a.webp)
 
 **Original caption:** Figure 15a: CIFAR10 pixel-space nearest neighbors.
 
@@ -1495,7 +1496,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 
 ### F015B · p.21
 
-![F015B](/readers/ddpm/fig15b.png)
+![F015B](/readers/ddpm/fig15b.webp)
 
 **Original caption:** Figure 15b: CIFAR10 Inception-feature nearest neighbors.
 
@@ -1505,7 +1506,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 
 ### F016 · p.22
 
-![F016](/readers/ddpm/fig16.png)
+![F016](/readers/ddpm/fig16.webp)
 
 **Original caption:** Figure 16: LSUN Church generated samples. FID=7.89.
 
@@ -1515,7 +1516,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 
 ### F017 · p.23
 
-![F017](/readers/ddpm/fig17.png)
+![F017](/readers/ddpm/fig17.webp)
 
 **Original caption:** Figure 17: LSUN Bedroom samples, large model. FID=4.90.
 
@@ -1525,7 +1526,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 
 ### F018 · p.24
 
-![F018](/readers/ddpm/fig18.png)
+![F018](/readers/ddpm/fig18.webp)
 
 **Original caption:** Figure 18: LSUN Bedroom samples, small model. FID=6.36.
 
@@ -1535,7 +1536,7 @@ Figure 10: Unconditional CIFAR10 progressive sampling quality over time
 
 ### F019 · p.25
 
-![F019](/readers/ddpm/fig19.png)
+![F019](/readers/ddpm/fig19.webp)
 
 **Original caption:** Figure 19: LSUN Cat generated samples. FID=19.75.
 

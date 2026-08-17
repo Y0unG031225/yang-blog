@@ -6,6 +6,7 @@ category: 学习记录
 categoryKey: study
 tags: [标签一, 标签二]
 tone: blue
+socialImage: "/og/posts/my-first-post.jpg"
 draft: true
 ---
 

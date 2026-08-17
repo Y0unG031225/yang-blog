@@ -2,6 +2,8 @@
 
 一个使用 Next.js 与 Markdown 构建的纯静态个人博客，可免费部署到 GitHub Pages。
 
+正式地址：<https://y0ung031225.github.io/yang-blog/>
+
 ## 本地使用
 
 ```bash
@@ -15,11 +17,21 @@ npm run dev
 npm run build
 ```
 
+发布前执行完整检查：
+
+```bash
+npm run check
+```
+
 构建结果位于 `out/`。项目不再使用阅读量、热门文章、API、Cloudflare Workers 或 D1 数据库。
 
 ## 发布文章
 
 在 `content/posts/` 新建或编辑 Markdown 文件，提交到 GitHub 的 `main` 分支后，GitHub Actions 会自动构建并发布网站。
+
+公开文章需要填写 `socialImage`，且对应图片必须存在。`npm run check` 会验证文章字段、分享图和正文中的本地资源链接。
+
+新增大量图片后，可执行 `npm run optimize:images` 生成网页使用的轻量版本。发布构建会自动移除输出目录中不再引用的原始大图。
 
 ## GitHub Pages
 
