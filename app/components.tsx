@@ -103,7 +103,9 @@ export function PostCard({
   return (
     <article className="post-card">
       <h2>
-        <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+        <Link href={`/posts/${post.slug}`} scroll={false}>
+          {post.title}
+        </Link>
       </h2>
       <p>{post.description}</p>
       <div className="post-meta">

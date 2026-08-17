@@ -122,7 +122,11 @@ export function SiteNavigation() {
           href={href}
           className={active ? "active" : undefined}
           aria-current={active ? "page" : undefined}
-          onClick={mobile ? () => setOpen(false) : undefined}
+          scroll={false}
+          onClick={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+            if (mobile) setOpen(false);
+          }}
         >
           <NavIcon name={icon} />
           <span>{label}</span>

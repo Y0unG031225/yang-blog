@@ -29,7 +29,9 @@ export default function ArchivesPage() {
                     {yearPosts.map((post) => (
                       <article className="archive-entry" key={post.slug}>
                         <time dateTime={post.date}>{post.date.slice(5)}</time>
-                        <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+                        <Link href={`/posts/${post.slug}`} scroll={false}>
+                          {post.title}
+                        </Link>
                       </article>
                     ))}
                   </div>

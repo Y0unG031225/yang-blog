@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArticleReadingTools } from "../../ArticleReadingTools";
 import { MarkdownContent, getMarkdownHeadings } from "../../MarkdownContent";
 import { PostShareActions } from "../../PostShareActions";
+import { TypingTitle } from "../../TypingTitle";
 import { PageShell } from "../../components";
 import { getPost, posts } from "../../lib/posts";
 import { absoluteUrl } from "../../lib/urls";
@@ -77,15 +78,15 @@ export default async function PostDetail({
       <header
         className="post-hero"
         style={{
-          backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/city-hero-wide.webp')`,
+          backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/fluid-default.jpg')`,
         }}
       >
         <div className="post-hero-overlay" />
         <div className="post-hero-content">
-          <Link className="post-back-link" href="/archives">
+          <Link className="post-back-link" href="/archives" scroll={false}>
             ← Archives
           </Link>
-          <h1>{post.title}</h1>
+          <TypingTitle text={post.title} />
           <p>{post.description}</p>
           <div className="post-hero-meta">
             <time dateTime={post.date}>{post.date}</time>
@@ -135,6 +136,7 @@ export default async function PostDetail({
                 <Link
                   className="article-nav-card previous"
                   href={`/posts/${newerPost.slug}`}
+                  scroll={false}
                 >
                   <small>Previous</small>
                   <strong>← {newerPost.title}</strong>
@@ -146,6 +148,7 @@ export default async function PostDetail({
                 <Link
                   className="article-nav-card next"
                   href={`/posts/${olderPost.slug}`}
+                  scroll={false}
                 >
                   <small>Next</small>
                   <strong>{olderPost.title} →</strong>

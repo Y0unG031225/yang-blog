@@ -17,11 +17,18 @@ export function TypingTitle({ text }: { text: string }) {
     const typeNext = () => {
       index += 1;
       setVisibleText(characters.slice(0, index).join(""));
-      if (index < characters.length) timer = setTimeout(typeNext, 58);
+      if (index < characters.length) timer = setTimeout(typeNext, 52);
     };
-    timer = setTimeout(typeNext, 360);
+    timer = setTimeout(typeNext, 180);
     return () => clearTimeout(timer);
   }, [text]);
 
-  return <h1 className="typing-title" aria-label={text}><span aria-hidden="true">{visibleText}</span><i className="typing-cursor" aria-hidden="true">_</i></h1>;
+  return (
+    <h1 className="typing-title" aria-label={text}>
+      <span aria-hidden="true">{visibleText}</span>
+      <i className="typing-cursor" aria-hidden="true">
+        _
+      </i>
+    </h1>
+  );
 }

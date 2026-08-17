@@ -11,7 +11,7 @@ export default function Home() {
         <section
           className="blog-hero"
           style={{
-            backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/city-hero-optimized.webp')`,
+            backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/fluid-default.jpg')`,
           }}
         >
           <div className="hero-overlay" />

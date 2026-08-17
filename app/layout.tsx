@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { AppBootstrap } from "./AppBootstrap";
 import { absoluteUrl, publicPath, siteRoot } from "./lib/urls";
 import { siteConfig } from "./site.config";
+import { ScrollToTop } from "./ScrollToTop";
 import "highlight.js/styles/github-dark-dimmed.css";
 import "katex/dist/katex.min.css";
 import "./globals.css";
@@ -89,7 +90,11 @@ export default function RootLayout({
     ],
   };
   return (
-    <html lang={siteConfig.language} suppressHydrationWarning>
+    <html
+      lang={siteConfig.language}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
@@ -101,6 +106,7 @@ export default function RootLayout({
       </head>
       <body>
         <AppBootstrap />
+        <ScrollToTop />
         {children}
       </body>
     </html>

@@ -189,6 +189,7 @@ export function HeaderActions({ posts }: { posts: SearchPost[] }) {
                       key={post.slug}
                       className="search-result"
                       href={`/posts/${post.slug}`}
+                      scroll={false}
                       onClick={() => setOpen(false)}
                     >
                       <span>{post.category}</span>
