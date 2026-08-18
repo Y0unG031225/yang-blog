@@ -15,13 +15,13 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#14283a",
     icons: [
       {
-        src: `${basePath}/touxiang.png?v=2`,
+        src: `${basePath}/touxiang.png?v=3`,
         sizes: "690x690",
         type: "image/png",
         purpose: "any",
       },
       {
-        src: `${basePath}/touxiang.png?v=2`,
+        src: `${basePath}/touxiang.png?v=3`,
         sizes: "690x690",
         type: "image/png",
         purpose: "maskable",
