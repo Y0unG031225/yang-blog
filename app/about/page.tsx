@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import { PageShell } from "../components";
+import { publicPath } from "../lib/urls";
 import { siteConfig } from "../site.config";
 import { SubpageHero } from "../SubpageHero";
 
@@ -19,7 +20,7 @@ export default function AboutPage() {
           <div className="about-avatar" aria-hidden={!siteConfig.avatar}>
             {siteConfig.avatar ? (
               <img
-                src={siteConfig.avatar}
+                src={publicPath(siteConfig.avatar)}
                 alt={`${siteConfig.ownerName}的头像`}
               />
             ) : (

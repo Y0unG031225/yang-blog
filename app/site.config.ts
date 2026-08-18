@@ -29,7 +29,7 @@ export const siteConfig = {
     "完成一个扎实的研究课题，建立稳定的阅读与输出习惯，并让这个网站忠实记录一路上的变化。",
 
   // 头像放入 public 文件夹后填写，例如 "/avatar.jpg"；留空则不显示
-  avatar: "",
+  avatar: "/touxiang.png",
 
   // 联系方式留空时不会显示
   contact: {
