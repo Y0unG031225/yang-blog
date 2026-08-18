@@ -178,15 +178,19 @@ html[data-theme="light"] .site-header.is-solid .header-action {
 }
 
 .home-feed {
+  --home-feed-lift: 0px;
+
   position: relative;
   z-index: 3;
   width: min(1140px, calc(100% - 30px));
-  margin: -2rem auto 40px;
+  margin: 0 auto 40px;
   padding: 3rem 9%;
   border: 0;
   border-radius: 0.5rem;
   background: var(--panel);
   box-shadow: var(--fluid-shadow);
+  transform: translateY(calc(-1 * var(--home-feed-lift)));
+  will-change: transform;
 }
 
 .post-card {
@@ -855,7 +859,6 @@ html[data-theme="dark"] .article-reading-layout .article-layout {
     font-size: 1.5rem;
   }
   .home-feed {
-    margin-top: -1rem;
     padding: 3rem 8%;
   }
   .collection-shell,

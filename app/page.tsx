@@ -1,4 +1,5 @@
 import { PageShell, PostCard } from "./components";
+import { HomeFeedMotion } from "./HomeFeedMotion";
 import { posts } from "./lib/posts";
 import { ScrollToArticles } from "./ScrollToArticles";
 import { siteConfig } from "./site.config";
@@ -21,17 +22,13 @@ export default function Home() {
           </div>
           <ScrollToArticles />
         </section>
-        <section
-          id="articles"
-          className="home-feed"
-          aria-label="Latest articles"
-        >
+        <HomeFeedMotion>
           <div className="post-list">
             {posts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
           </div>
-        </section>
+        </HomeFeedMotion>
       </main>
     </PageShell>
   );
