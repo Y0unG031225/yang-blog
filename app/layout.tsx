@@ -32,15 +32,15 @@ export function generateMetadata(): Metadata {
     icons: {
       icon: [
         {
-          url: publicPath("/touxiang.png?v=2"),
+          url: publicPath("/favicon.png?v=3"),
           sizes: "690x690",
           type: "image/png",
         },
       ],
-      shortcut: publicPath("/touxiang.png?v=2"),
+      shortcut: publicPath("/favicon.png?v=3"),
       apple: [
         {
-          url: publicPath("/touxiang.png?v=2"),
+          url: publicPath("/apple-touch-icon.png?v=3"),
           sizes: "690x690",
           type: "image/png",
         },
