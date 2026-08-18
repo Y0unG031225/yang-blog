@@ -14,9 +14,18 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#121823",
     theme_color: "#14283a",
     icons: [
-      { src: `${basePath}/icons/icon-192.png`, sizes: "192x192", type: "image/png" },
-      { src: `${basePath}/icons/icon-512.png`, sizes: "512x512", type: "image/png" },
-      { src: `${basePath}/icons/icon-512-maskable.png`, sizes: "512x512", type: "image/png", purpose: "maskable" },
+      {
+        src: `${basePath}/touxiang.png?v=2`,
+        sizes: "690x690",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: `${basePath}/touxiang.png?v=2`,
+        sizes: "690x690",
+        type: "image/png",
+        purpose: "maskable",
+      },
     ],
   };
 }

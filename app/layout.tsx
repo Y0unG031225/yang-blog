@@ -31,15 +31,20 @@ export function generateMetadata(): Metadata {
     },
     icons: {
       icon: [
-        { url: publicPath("/favicon.svg"), type: "image/svg+xml" },
         {
-          url: publicPath("/icons/icon-192.png"),
-          sizes: "192x192",
+          url: publicPath("/touxiang.png?v=2"),
+          sizes: "690x690",
           type: "image/png",
         },
       ],
-      shortcut: publicPath("/favicon.svg"),
-      apple: publicPath("/icons/apple-touch-icon.png"),
+      shortcut: publicPath("/touxiang.png?v=2"),
+      apple: [
+        {
+          url: publicPath("/touxiang.png?v=2"),
+          sizes: "690x690",
+          type: "image/png",
+        },
+      ],
     },
     openGraph: {
       url: siteRoot(),
