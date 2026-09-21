@@ -1,5 +1,5 @@
 ---
-title: "AlphaFold2 and Its Applications in Biology and Medicine：中文总结"
+title: "AlphaFold2 and Its Applications in the Fields of Biology and Medicine"
 description: "系统梳理 AlphaFold2 的进化信息、Evoformer 与结构模块原理，总结其在生物学和医学中的应用及关键局限。"
 date: "2026-09-20"
 category: "论文精读"
@@ -11,7 +11,7 @@ socialImage: "/og/posts/alphafold2-principles-applications-limitations.png"
 draft: false
 ---
 
-# AlphaFold2 and Its Applications in Biology and Medicine：中文总结
+# AlphaFold2 and Its Applications in the Fields of Biology and Medicine
 
 - **作者**：Zhenyu Yang、Xiaoxi Zeng、Yi Zhao、Runsheng Chen
 - **期刊与年份**：*Signal Transduction and Targeted Therapy*，2023，8：115
